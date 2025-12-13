@@ -1,0 +1,182 @@
+.property-card {
+  display: block;
+  cursor: pointer;
+}
+
+.property-image {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 1;
+  margin-bottom: 12px;
+}
+
+.property-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.property-card:hover .property-image img {
+  transform: scale(1.05);
+}
+
+.wishlist-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  color: white;
+  padding: 0;
+  transition: var(--transition);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.wishlist-btn:hover {
+  color: #ff385c;
+  transform: scale(1.1);
+}
+
+.superhost-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--bg-white);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.property-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.property-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.property-header h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.property-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+.property-distance,
+.property-dates {
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+.property-price {
+  font-size: 14px;
+  color: var(--text-dark);
+  margin-top: 4px;
+}
+
+.property-price strong {
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .property-image {
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
+  .property-header h3 {
+    font-size: 14px;
+  }
+
+  .property-rating {
+    font-size: 13px;
+  }
+
+  .property-distance,
+  .property-dates {
+    font-size: 13px;
+  }
+
+  .property-price {
+    font-size: 13px;
+  }
+
+  .wishlist-btn {
+    top: 10px;
+    right: 10px;
+  }
+
+  .superhost-badge {
+    top: 10px;
+    left: 10px;
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .property-image {
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+
+  .property-info {
+    gap: 3px;
+  }
+
+  .property-header h3 {
+    font-size: 13px;
+  }
+
+  .property-rating {
+    font-size: 12px;
+  }
+
+  .property-distance,
+  .property-dates {
+    font-size: 12px;
+  }
+
+  .property-price {
+    font-size: 12px;
+    margin-top: 3px;
+  }
+
+  .wishlist-btn {
+    top: 8px;
+    right: 8px;
+  }
+
+  .superhost-badge {
+    top: 8px;
+    left: 8px;
+    padding: 4px 8px;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .property-header h3 {
+    font-size: 12px;
+  }
+
+  .property-rating,
+  .property-distance,
+  .property-dates,
+  .property-price {
+    font-size: 11px;
+  }
+}

@@ -1,0 +1,347 @@
+.listings-page {
+  min-height: 100vh;
+  background: var(--bg-light);
+}
+
+.listings-header {
+  background: var(--bg-white);
+  border-bottom: 1px solid var(--border-color);
+  padding: 20px 0;
+  position: sticky;
+  top: 70px;
+  z-index: 99;
+}
+
+.listings-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-light);
+  border: 1px solid var(--border-color);
+  border-radius: 40px;
+  padding: 14px 24px;
+  margin-bottom: 20px;
+}
+
+.listings-search svg {
+  color: var(--text-light);
+}
+
+.listings-search input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 15px;
+  color: var(--text-dark);
+}
+
+.listings-search input::placeholder {
+  color: var(--text-light);
+}
+
+.listings-filters {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
+  padding: 10px 18px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-dark);
+  transition: var(--transition);
+}
+
+.filter-btn:hover {
+  border-color: var(--text-dark);
+}
+
+.filter-btn-icon {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.filter-btn-icon:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+.listings-content {
+  padding: 30px 0 60px;
+}
+
+.listings-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.listings-info h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+}
+
+.listings-info p {
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+.map-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
+  padding: 12px 20px;
+  border-radius: 30px;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.map-toggle:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.listings-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.map-view {
+  background: var(--bg-white);
+  border-radius: 16px;
+  overflow: hidden;
+  height: 500px;
+}
+
+.map-placeholder {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-light);
+  gap: 12px;
+}
+
+.map-placeholder p {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.no-results {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-light);
+}
+
+.no-results svg {
+  margin-bottom: 20px;
+}
+
+.no-results h2 {
+  font-size: 24px;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+@media (max-width: 1200px) {
+  .listings-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .listings-container {
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .listings-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .listings-search {
+    max-width: 480px;
+  }
+
+  .listings-header-content {
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: 900px) {
+  .listings-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .listings-container {
+    padding: 0 15px;
+  }
+
+  .listings-filters {
+    gap: 10px;
+  }
+
+  .filter-btn {
+    padding: 10px 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .listings-header {
+    top: 60px;
+  }
+
+  .listings-info h1 {
+    font-size: 24px;
+  }
+
+  .listings-content {
+    padding: 25px 0 50px;
+  }
+
+  .map-view {
+    height: 400px;
+  }
+}
+
+@media (max-width: 600px) {
+  .listings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .listings-filters {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 10px;
+  }
+
+  .filter-btn {
+    white-space: nowrap;
+  }
+
+  .listings-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .map-toggle {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .listings-header {
+    padding: 15px 0;
+  }
+
+  .listings-search {
+    padding: 12px 16px;
+    margin-bottom: 15px;
+  }
+
+  .listings-search input {
+    font-size: 14px;
+  }
+
+  .filter-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .listings-content {
+    padding: 20px 0 40px;
+  }
+
+  .listings-info h1 {
+    font-size: 22px;
+  }
+
+  .listings-info {
+    margin-bottom: 20px;
+  }
+
+  .listings-grid {
+    gap: 20px;
+  }
+
+  .map-view {
+    height: 350px;
+    border-radius: 12px;
+  }
+
+  .map-placeholder p {
+    font-size: 16px;
+  }
+
+  .no-results {
+    padding: 60px 15px;
+  }
+
+  .no-results h2 {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  .listings-search {
+    padding: 10px 12px;
+    border-radius: 30px;
+  }
+
+  .listings-search input {
+    font-size: 13px;
+  }
+
+  .filter-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 20px;
+  }
+
+  .listings-info h1 {
+    font-size: 20px;
+  }
+
+  .listings-info p {
+    font-size: 13px;
+  }
+
+  .map-toggle {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .map-view {
+    height: 280px;
+  }
+
+  .no-results {
+    padding: 40px 10px;
+  }
+
+  .no-results svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .no-results h2 {
+    font-size: 18px;
+  }
+}

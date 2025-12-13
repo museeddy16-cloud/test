@@ -1,0 +1,661 @@
+/* Rwanda Destination Page Styles */
+.rwanda-page {
+  background: #fff;
+  min-height: 100vh;
+}
+
+/* Hero Section */
+.rwanda-hero {
+  width: 100%;
+  height: 500px;
+  background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.6) 0%,
+    rgba(129, 140, 248, 0.6) 100%
+  ),
+  url('https://upload.wikimedia.org/wikipedia/commons/b/b6/Volcanoes_National_Park_Rwanda.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  text-align: center;
+  color: #fff;
+  z-index: 10;
+  animation: fadeInDown 0.8s ease-out;
+  padding: 20px;
+  max-width: 90vw;
+}
+
+.rwanda-hero h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+  text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+  word-break: break-word;
+}
+
+.rwanda-hero p {
+  font-size: 1.5rem;
+  margin: 0;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  word-break: break-word;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Rwanda Intro Section */
+.rwanda-intro {
+  padding: 60px 0;
+  text-align: center;
+  background: #f8fafc;
+}
+
+.rwanda-intro h2 {
+  font-size: 2.5rem;
+  color: #1e293b;
+  margin-bottom: 24px;
+}
+
+.rwanda-intro p {
+  font-size: 1.1rem;
+  color: #64748b;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* Section Common Styles */
+.top-hotels-section,
+.places-to-visit-section,
+.rwanda-highlights,
+.best-time-section {
+  padding: 80px 0;
+}
+
+.top-hotels-section {
+  background: #fff;
+}
+
+.places-to-visit-section {
+  background: #f8fafc;
+}
+
+.rwanda-highlights {
+  background: #fff;
+}
+
+.best-time-section {
+  background: #f8fafc;
+}
+
+section h2 {
+  font-size: 2.5rem;
+  color: #1e293b;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.section-subtitle {
+  color: #64748b;
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 48px;
+}
+
+/* Hotels Grid */
+.hotels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  margin-top: 48px;
+  width: 100%;
+}
+
+.hotel-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(60, 72, 88, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.hotel-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(60, 72, 88, 0.2);
+}
+
+.hotel-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: #e2e8f0;
+}
+
+.hotel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease;
+  display: block;
+}
+
+.hotel-card:hover .hotel-image {
+  transform: scale(1.08);
+}
+
+.superhost-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  z-index: 5;
+}
+
+.wishlist-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  z-index: 5;
+  flex-shrink: 0;
+}
+
+.wishlist-btn:hover {
+  background: #fff;
+}
+
+.hotel-info {
+  padding: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.hotel-info h3 {
+  font-size: 1.25rem;
+  color: #1e293b;
+  margin: 0 0 12px 0;
+  word-break: break-word;
+}
+
+.hotel-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.location,
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rating {
+  color: #f59e0b;
+}
+
+.hotel-description {
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0 0 16px 0;
+  flex: 1;
+  word-break: break-word;
+}
+
+.hotel-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid #e2e8f0;
+  flex-wrap: wrap;
+}
+
+.price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #6366f1;
+  white-space: nowrap;
+}
+
+.view-btn {
+  background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.view-btn:hover {
+  opacity: 0.9;
+}
+
+/* Places to Visit */
+.places-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px;
+  margin-top: 48px;
+  width: 100%;
+}
+
+.place-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(60, 72, 88, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.place-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(60, 72, 88, 0.15);
+}
+
+.place-image {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  background: #e2e8f0;
+}
+
+.place-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease;
+  display: block;
+}
+
+.place-card:hover .place-image img {
+  transform: scale(1.06);
+}
+
+.highlight-tag {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  z-index: 5;
+}
+
+.place-content {
+  padding: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.place-content h3 {
+  font-size: 1.3rem;
+  color: #1e293b;
+  margin: 0 0 12px 0;
+  word-break: break-word;
+}
+
+.place-content p {
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0 0 16px 0;
+  flex: 1;
+  word-break: break-word;
+}
+
+.learn-more-btn {
+  align-self: flex-start;
+  background: none;
+  border: 2px solid #6366f1;
+  color: #6366f1;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.learn-more-btn:hover {
+  background: #6366f1;
+  color: #fff;
+}
+
+/* Highlights Section */
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  margin-top: 48px;
+  width: 100%;
+}
+
+.highlight-item {
+  background: #f8fafc;
+  padding: 32px;
+  border-radius: 12px;
+  border: 2px solid #e2e8f0;
+  transition: all 0.3s ease;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.highlight-item:hover {
+  border-color: #6366f1;
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.1);
+  transform: translateY(-4px);
+}
+
+.highlight-item h3 {
+  font-size: 1.3rem;
+  color: #1e293b;
+  margin: 0 0 12px 0;
+  word-break: break-word;
+}
+
+.highlight-item p {
+  color: #64748b;
+  margin: 0;
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+/* Best Time Section */
+.seasons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+  margin-top: 48px;
+  width: 100%;
+}
+
+.season {
+  background: linear-gradient(135deg, #f8fafc 0%, #fff 100%);
+  padding: 32px;
+  border-radius: 12px;
+  border-left: 4px solid #6366f1;
+  box-shadow: 0 4px 12px rgba(60, 72, 88, 0.08);
+  box-sizing: border-box;
+}
+
+.season h3 {
+  font-size: 1.5rem;
+  color: #1e293b;
+  margin: 0 0 12px 0;
+  word-break: break-word;
+}
+
+.season p {
+  color: #64748b;
+  margin: 8px 0;
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.season p strong {
+  color: #6366f1;
+  font-weight: 700;
+}
+
+/* CTA Section */
+.cta-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+  color: #fff;
+  text-align: center;
+}
+
+.cta-section h2 {
+  color: #fff;
+  margin-bottom: 16px;
+  word-break: break-word;
+}
+
+.cta-section p {
+  font-size: 1.1rem;
+  margin-bottom: 32px;
+  opacity: 0.95;
+  word-break: break-word;
+}
+
+.cta-button {
+  background: #fff;
+  color: #6366f1;
+  border: none;
+  padding: 16px 48px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .rwanda-hero {
+    height: 400px;
+    background-attachment: scroll;
+  }
+
+  .rwanda-hero h1 {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+  }
+
+  .rwanda-hero p {
+    font-size: 1rem;
+  }
+
+  section h2 {
+    font-size: 2rem;
+  }
+
+  .hotel-card,
+  .place-card {
+    height: auto;
+  }
+
+  .hotel-image-wrapper,
+  .place-image {
+    height: 200px;
+  }
+
+  .hotels-grid,
+  .places-grid,
+  .highlights-grid,
+  .seasons {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .top-hotels-section,
+  .places-to-visit-section,
+  .rwanda-highlights,
+  .best-time-section {
+    padding: 48px 0;
+  }
+
+  .hotel-info,
+  .place-content,
+  .highlight-item,
+  .season {
+    padding: 20px;
+  }
+
+  .hotel-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .price,
+  .view-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .view-btn {
+    padding: 12px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .rwanda-hero {
+    height: 320px;
+  }
+
+  .rwanda-hero h1 {
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+  }
+
+  .rwanda-hero p {
+    font-size: 0.95rem;
+  }
+
+  section h2 {
+    font-size: 1.5rem;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+    margin-bottom: 32px;
+  }
+
+  .top-hotels-section,
+  .places-to-visit-section,
+  .rwanda-highlights,
+  .best-time-section {
+    padding: 36px 0;
+  }
+
+  .hotel-image-wrapper,
+  .place-image {
+    height: 180px;
+  }
+
+  .hotel-info,
+  .place-content,
+  .highlight-item,
+  .season {
+    padding: 16px;
+  }
+
+  .hotel-info h3,
+  .place-content h3,
+  .season h3 {
+    font-size: 1.1rem;
+  }
+
+  .cta-button {
+    padding: 12px 32px;
+    font-size: 1rem;
+  }
+
+  .highlight-item {
+    padding: 24px 16px;
+  }
+
+  .season {
+    padding: 20px 16px;
+  }
+}
+
+@media (max-width: 320px) {
+  .container {
+    padding: 0 12px;
+  }
+
+  .rwanda-hero h1 {
+    font-size: 1.4rem;
+  }
+
+  .rwanda-hero p {
+    font-size: 0.85rem;
+  }
+
+  .hotel-image-wrapper,
+  .place-image {
+    height: 150px;
+  }
+
+  section h2 {
+    font-size: 1.3rem;
+  }
+}
+
