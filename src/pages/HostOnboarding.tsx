@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { getApiUrl } from "../config/api";
-import "../styles/HostOnboarding.css";
+import "../styles/hostOnboarding.css";
 
 interface FormDataType {
   displayName: string;
