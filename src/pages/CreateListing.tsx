@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, X, MapPin } from 'lucide-react';
+import { ArrowLeft, X, MapPin, Upload, CheckCircle } from 'lucide-react';
 import { getApiUrl } from '../config/api';
 import { useAuth } from '../context/AuthContext';
 import './Dashboard.css';
+import './CreateListing.css';
 import Sidebar from '../components/Sidebar';
 
 interface ListingForm {
@@ -260,13 +261,21 @@ export default function CreateListing() {
           <div className="form-section">
             <h2>Property Basic Info</h2>
             <div className="form-group">
-              <label>Property Title *</label>
-              <input type="text" name="title" value={form.title} onChange={handleChange} required placeholder="e.g., Cozy Apartment in City Center" />
-              <small style={{ color: '#666', fontSize: '12px' }}>{form.title.length}/150</small>
+              <label>Property Title <span className="required">*</span></label>
+              <input 
+                type="text" 
+                name="title" 
+                value={form.title} 
+                onChange={handleChange} 
+                required 
+                placeholder="e.g., Cozy Apartment in City Center" 
+                maxLength={150}
+              />
+              <small>{form.title.length}/150 characters</small>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+            <div className="form-grid-2">
               <div className="form-group">
-                <label>Property Type *</label>
+                <label>Property Type <span className="required">*</span></label>
                 <select name="propertyType" value={form.propertyType} onChange={handleChange}>
                   <option value="APARTMENT">Apartment</option>
                   <option value="HOUSE">House</option>
@@ -276,7 +285,7 @@ export default function CreateListing() {
                 </select>
               </div>
               <div className="form-group">
-                <label>Listing Category *</label>
+                <label>Listing Category <span className="required">*</span></label>
                 <select name="listingCategory" value={form.listingCategory} onChange={handleChange}>
                   <option value="ENTIRE_PLACE">Entire Place</option>
                   <option value="PRIVATE_ROOM">Private Room</option>
@@ -286,7 +295,13 @@ export default function CreateListing() {
             </div>
             <div className="form-group">
               <label>Short Headline</label>
-              <input type="text" name="headline" value={form.headline} onChange={handleChange} placeholder="Brief description for listing preview" />
+              <input 
+                type="text" 
+                name="headline" 
+                value={form.headline} 
+                onChange={handleChange} 
+                placeholder="Brief description for listing preview" 
+              />
             </div>
           </div>
         );
@@ -294,17 +309,17 @@ export default function CreateListing() {
         return (
           <div className="form-section">
             <h2>Location Details</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+            <div className="form-grid-2">
               <div className="form-group">
-                <label>Country *</label>
+                <label>Country <span className="required">*</span></label>
                 <input type="text" name="country" value={form.country} onChange={handleChange} required />
               </div>
               <div className="form-group">
-                <label>City *</label>
+                <label>City <span className="required">*</span></label>
                 <input type="text" name="city" value={form.city} onChange={handleChange} required />
               </div>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+            <div className="form-grid-2">
               <div className="form-group">
                 <label>Area / Neighborhood</label>
                 <input type="text" name="area" value={form.area} onChange={handleChange} placeholder="e.g., Downtown" />
@@ -314,14 +329,28 @@ export default function CreateListing() {
                 <input type="text" name="location" value={form.location} onChange={handleChange} placeholder="Optional" />
               </div>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+            <div className="form-grid-2">
               <div className="form-group">
                 <label>Latitude</label>
-                <input type="number" name="latitude" value={form.latitude || ''} onChange={handleChange} step="0.0001" placeholder="e.g., -1.9466" />
+                <input 
+                  type="number" 
+                  name="latitude" 
+                  value={form.latitude || ''} 
+                  onChange={handleChange} 
+                  step="0.0001" 
+                  placeholder="e.g., -1.9466" 
+                />
               </div>
               <div className="form-group">
                 <label>Longitude</label>
-                <input type="number" name="longitude" value={form.longitude || ''} onChange={handleChange} step="0.0001" placeholder="e.g., 29.8739" />
+                <input 
+                  type="number" 
+                  name="longitude" 
+                  value={form.longitude || ''} 
+                  onChange={handleChange} 
+                  step="0.0001" 
+                  placeholder="e.g., 29.8739" 
+                />
               </div>
             </div>
           </div>
@@ -330,28 +359,49 @@ export default function CreateListing() {
         return (
           <div className="form-section">
             <h2>Images & Media</h2>
-            <div className="form-group" style={{ marginBottom: '30px' }}>
-              <label style={{ display: 'block', marginBottom: '10px', fontWeight: '600' }}>Property Images * (Required)</label>
-              <div style={{ border: '2px dashed #ddd', borderRadius: '8px', padding: '30px', textAlign: 'center', cursor: 'pointer', backgroundColor: '#f9f9f9' }}>
-                <input type="file" multiple accept="image/*" onChange={handleImageUpload} style={{ display: 'none' }} id="image-input" disabled={loading} />
-                <label htmlFor="image-input" style={{ cursor: 'pointer', display: 'block' }}>
-                  <p style={{ margin: '10px 0', color: '#666' }}>Click to upload images or drag and drop</p>
-                  <p style={{ margin: '0', color: '#999', fontSize: '12px' }}>PNG, JPG, GIF up to 10MB (Max 10 images)</p>
+            <div className="form-group">
+              <label>
+                Property Images <span className="required">*</span>
+              </label>
+              <div 
+                className="image-upload-wrapper"
+                onDragOver={(e) => e.preventDefault()}
+              >
+                <input 
+                  type="file" 
+                  multiple 
+                  accept="image/*" 
+                  onChange={handleImageUpload} 
+                  id="image-input"
+                  disabled={loading}
+                />
+                <label htmlFor="image-input">
+                  <div className="image-upload-icon">📸</div>
+                  <div className="image-upload-text">Click to upload or drag and drop</div>
+                  <div className="image-upload-hint">PNG, JPG, GIF up to 10MB • Maximum 10 images</div>
                 </label>
               </div>
+
               {imagePreview.length > 0 && (
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))', gap: '10px', marginTop: '15px' }}>
+                <div className="image-preview-grid">
                   {imagePreview.map((preview, index) => (
-                    <div key={index} style={{ position: 'relative', borderRadius: '8px', overflow: 'hidden' }}>
-                      <img src={preview} alt={`Preview ${index}`} style={{ width: '100%', height: '100px', objectFit: 'cover' }} />
-                      <button type="button" onClick={() => removeImage(index)} style={{ position: 'absolute', top: '5px', right: '5px', background: 'rgba(255,0,0,0.7)', border: 'none', color: 'white', borderRadius: '50%', width: '30px', height: '30px', cursor: 'pointer' }}>
+                    <div key={index} className="image-preview-item">
+                      <img src={preview} alt={`Preview ${index + 1}`} />
+                      <button 
+                        type="button" 
+                        className="remove-btn"
+                        onClick={() => removeImage(index)}
+                      >
                         <X size={16} />
                       </button>
                     </div>
                   ))}
                 </div>
               )}
-              <p style={{ marginTop: '10px', color: '#666', fontSize: '14px' }}>{imageFiles.length}/10 images</p>
+
+              <small>
+                {imageFiles.length}/10 images uploaded
+              </small>
             </div>
           </div>
         );
@@ -359,9 +409,9 @@ export default function CreateListing() {
         return (
           <div className="form-section">
             <h2>Pricing</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+            <div className="form-grid-2">
               <div className="form-group">
-                <label>Price per Night ($) *</label>
+                <label>Price per Night ($) <span className="required">*</span></label>
                 <input type="number" name="price" value={form.price} onChange={handleChange} required min="0" step="0.01" />
               </div>
               <div className="form-group">
@@ -374,21 +424,21 @@ export default function CreateListing() {
                 </select>
               </div>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '15px' }}>
+            <div className="form-grid-3">
               <div className="form-group">
                 <label>Weekly Discount (%)</label>
-                <input type="number" name="weeklyDiscount" value={form.weeklyDiscount} onChange={handleChange} min="0" step="1" />
+                <input type="number" name="weeklyDiscount" value={form.weeklyDiscount} onChange={handleChange} min="0" max="100" step="1" />
               </div>
               <div className="form-group">
                 <label>Monthly Discount (%)</label>
-                <input type="number" name="monthlyDiscount" value={form.monthlyDiscount} onChange={handleChange} min="0" step="1" />
+                <input type="number" name="monthlyDiscount" value={form.monthlyDiscount} onChange={handleChange} min="0" max="100" step="1" />
               </div>
               <div className="form-group">
                 <label>Cleaning Fee ($)</label>
                 <input type="number" name="cleaningFee" value={form.cleaningFee} onChange={handleChange} min="0" step="0.01" />
               </div>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+            <div className="form-grid-2">
               <div className="form-group">
                 <label>Service Fee ($)</label>
                 <input type="number" name="serviceFee" value={form.serviceFee} onChange={handleChange} min="0" step="0.01" />
@@ -404,21 +454,21 @@ export default function CreateListing() {
         return (
           <div className="form-section">
             <h2>Guests & Capacity</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '15px' }}>
+            <div className="form-grid-4">
               <div className="form-group">
-                <label>Max Guests *</label>
+                <label>Max Guests <span className="required">*</span></label>
                 <input type="number" name="maxGuests" value={form.maxGuests} onChange={handleChange} required min="1" />
               </div>
               <div className="form-group">
-                <label>Bedrooms *</label>
+                <label>Bedrooms <span className="required">*</span></label>
                 <input type="number" name="bedrooms" value={form.bedrooms} onChange={handleChange} required min="0" />
               </div>
               <div className="form-group">
-                <label>Beds *</label>
+                <label>Beds <span className="required">*</span></label>
                 <input type="number" name="beds" value={form.beds} onChange={handleChange} required min="1" />
               </div>
               <div className="form-group">
-                <label>Bathrooms *</label>
+                <label>Bathrooms <span className="required">*</span></label>
                 <input type="number" name="bathrooms" value={form.bathrooms} onChange={handleChange} required min="0" />
               </div>
             </div>
@@ -428,7 +478,7 @@ export default function CreateListing() {
         return (
           <div className="form-section">
             <h2>Availability</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+            <div className="form-grid-2">
               <div className="form-group">
                 <label>Check-in Time</label>
                 <input type="time" name="checkInTime" value={form.checkInTime} onChange={handleChange} />
@@ -438,7 +488,7 @@ export default function CreateListing() {
                 <input type="time" name="checkOutTime" value={form.checkOutTime} onChange={handleChange} />
               </div>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+            <div className="form-grid-2">
               <div className="form-group">
                 <label>Minimum Nights</label>
                 <input type="number" name="minNights" value={form.minNights} onChange={handleChange} min="1" />
@@ -454,11 +504,15 @@ export default function CreateListing() {
         return (
           <div className="form-section">
             <h2>Amenities</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '10px' }}>
+            <div className="amenity-grid">
               {AMENITIES.map(amenity => (
-                <label key={amenity} style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-                  <input type="checkbox" checked={form.amenities.includes(amenity)} onChange={() => handleAmenityToggle(amenity)} />
-                  {amenity}
+                <label key={amenity} className="amenity-item">
+                  <input 
+                    type="checkbox" 
+                    checked={form.amenities.includes(amenity)} 
+                    onChange={() => handleAmenityToggle(amenity)} 
+                  />
+                  <span>{amenity}</span>
                 </label>
               ))}
             </div>
@@ -469,24 +523,49 @@ export default function CreateListing() {
           <div className="form-section">
             <h2>Description</h2>
             <div className="form-group">
-              <label>About This Place * (Max 2000 characters)</label>
-              <textarea name="description" value={form.description} onChange={handleChange} required rows={5} placeholder="Describe your property..." />
-              <small style={{ color: '#666', fontSize: '12px' }}>{form.description.length}/2000</small>
+              <label>About This Place <span className="required">*</span> (Max 2000 characters)</label>
+              <textarea 
+                name="description" 
+                value={form.description} 
+                onChange={handleChange} 
+                required 
+                placeholder="Describe your property, its features, and what makes it special..." 
+                maxLength={2000}
+              />
+              <small>{form.description.length}/2000 characters</small>
             </div>
             <div className="form-group">
               <label>The Space (Max 1000 characters)</label>
-              <textarea name="space" value={form.space} onChange={handleChange} rows={4} placeholder="What guests can use..." />
-              <small style={{ color: '#666', fontSize: '12px' }}>{form.space.length}/1000</small>
+              <textarea 
+                name="space" 
+                value={form.space} 
+                onChange={handleChange} 
+                placeholder="What areas and amenities can guests access?" 
+                maxLength={1000}
+              />
+              <small>{form.space.length}/1000 characters</small>
             </div>
             <div className="form-group">
               <label>Guest Access (Max 1000 characters)</label>
-              <textarea name="guestAccess" value={form.guestAccess} onChange={handleChange} rows={4} placeholder="What areas are accessible..." />
-              <small style={{ color: '#666', fontSize: '12px' }}>{form.guestAccess.length}/1000</small>
+              <textarea 
+                name="guestAccess" 
+                value={form.guestAccess} 
+                onChange={handleChange} 
+                placeholder="What specific areas are available for guests?" 
+                maxLength={1000}
+              />
+              <small>{form.guestAccess.length}/1000 characters</small>
             </div>
             <div className="form-group">
               <label>Other Things to Note (Max 1000 characters)</label>
-              <textarea name="otherNotes" value={form.otherNotes} onChange={handleChange} rows={4} placeholder="Additional information..." />
-              <small style={{ color: '#666', fontSize: '12px' }}>{form.otherNotes.length}/1000</small>
+              <textarea 
+                name="otherNotes" 
+                value={form.otherNotes} 
+                onChange={handleChange} 
+                placeholder="Any additional important information for guests..." 
+                maxLength={1000}
+              />
+              <small>{form.otherNotes.length}/1000 characters</small>
             </div>
           </div>
         );
@@ -494,28 +573,52 @@ export default function CreateListing() {
         return (
           <div className="form-section">
             <h2>House Rules</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
-                <input type="checkbox" checked={form.smokingAllowed} onChange={() => handleCheckbox('smokingAllowed')} />
-                Smoking Allowed
+            <div className="checkbox-group">
+              <label>
+                <input 
+                  type="checkbox" 
+                  checked={form.smokingAllowed} 
+                  onChange={() => handleCheckbox('smokingAllowed')} 
+                />
+                <span>Smoking Allowed</span>
               </label>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
-                <input type="checkbox" checked={form.petsAllowed} onChange={() => handleCheckbox('petsAllowed')} />
-                Pets Allowed
+              <label>
+                <input 
+                  type="checkbox" 
+                  checked={form.petsAllowed} 
+                  onChange={() => handleCheckbox('petsAllowed')} 
+                />
+                <span>Pets Allowed</span>
               </label>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
-                <input type="checkbox" checked={form.partiesAllowed} onChange={() => handleCheckbox('partiesAllowed')} />
-                Parties Allowed
+              <label>
+                <input 
+                  type="checkbox" 
+                  checked={form.partiesAllowed} 
+                  onChange={() => handleCheckbox('partiesAllowed')} 
+                />
+                <span>Parties Allowed</span>
               </label>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+            <div className="form-grid-2">
               <div className="form-group">
                 <label>Quiet Hours</label>
-                <input type="text" name="quietHours" value={form.quietHours} onChange={handleChange} placeholder="e.g., 22:00-08:00" />
+                <input 
+                  type="text" 
+                  name="quietHours" 
+                  value={form.quietHours} 
+                  onChange={handleChange} 
+                  placeholder="e.g., 22:00-08:00" 
+                />
               </div>
               <div className="form-group">
                 <label>Check-in Rules</label>
-                <input type="text" name="checkInRules" value={form.checkInRules} onChange={handleChange} placeholder="Any specific rules..." />
+                <input 
+                  type="text" 
+                  name="checkInRules" 
+                  value={form.checkInRules} 
+                  onChange={handleChange} 
+                  placeholder="e.g., Front desk available" 
+                />
               </div>
             </div>
           </div>
@@ -524,22 +627,38 @@ export default function CreateListing() {
         return (
           <div className="form-section">
             <h2>Safety & Property</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
-                <input type="checkbox" checked={form.smokeDetector} onChange={() => handleCheckbox('smokeDetector')} />
-                Smoke Detector
+            <div className="checkbox-group">
+              <label>
+                <input 
+                  type="checkbox" 
+                  checked={form.smokeDetector} 
+                  onChange={() => handleCheckbox('smokeDetector')} 
+                />
+                <span>Smoke Detector</span>
               </label>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
-                <input type="checkbox" checked={form.fireExtinguisher} onChange={() => handleCheckbox('fireExtinguisher')} />
-                Fire Extinguisher
+              <label>
+                <input 
+                  type="checkbox" 
+                  checked={form.fireExtinguisher} 
+                  onChange={() => handleCheckbox('fireExtinguisher')} 
+                />
+                <span>Fire Extinguisher</span>
               </label>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
-                <input type="checkbox" checked={form.firstAidKit} onChange={() => handleCheckbox('firstAidKit')} />
-                First Aid Kit
+              <label>
+                <input 
+                  type="checkbox" 
+                  checked={form.firstAidKit} 
+                  onChange={() => handleCheckbox('firstAidKit')} 
+                />
+                <span>First Aid Kit</span>
               </label>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
-                <input type="checkbox" checked={form.securityCamera} onChange={() => handleCheckbox('securityCamera')} />
-                Security Camera
+              <label>
+                <input 
+                  type="checkbox" 
+                  checked={form.securityCamera} 
+                  onChange={() => handleCheckbox('securityCamera')} 
+                />
+                <span>Security Camera</span>
               </label>
             </div>
           </div>
@@ -550,64 +669,109 @@ export default function CreateListing() {
   };
 
   return (
-    <div className="dashboard-layout">
+    <div className="create-listing-container">
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <main className="dashboard-main">
-        <header className="dashboard-header">
-          <div>
-            <button onClick={() => navigate('/dashboard/listings')} className="back-btn" style={{ background: 'none', border: 'none', cursor: 'pointer', marginBottom: '10px' }}>
-              <ArrowLeft size={20} style={{ marginRight: '8px', verticalAlign: 'middle' }} />
-              Back to Listings
-            </button>
+      <main className="create-listing-main">
+        {/* Header */}
+        <header className="create-listing-header">
+          <button 
+            onClick={() => navigate('/dashboard/listings')} 
+            className="back-btn"
+          >
+            <ArrowLeft size={18} />
+            Back
+          </button>
+          <div className="header-content">
             <h1>Create New Listing</h1>
-            <p>Step {currentSection + 1} of {sections.length}</p>
+            <p>Complete all steps to list your property</p>
           </div>
         </header>
 
-        <div className="dashboard-content">
-          {error && <div style={{ color: 'red', marginBottom: '15px', padding: '10px', backgroundColor: '#ffe0e0', borderRadius: '4px' }}>{error}</div>}
+        {/* Progress Bar */}
+        <section className="progress-section">
+          <div className="progress-bar">
+            <div 
+              className="progress-fill" 
+              style={{ width: `${((currentSection + 1) / sections.length) * 100}%` }}
+            ></div>
+          </div>
+          <div className="progress-text">
+            Step {currentSection + 1} of {sections.length} - {sections[currentSection].title}
+          </div>
+        </section>
 
-          <form onSubmit={handleSubmit} style={{ maxWidth: '900px', margin: '0 auto' }}>
-            {/* Section Navigation */}
-            <div style={{ display: 'flex', gap: '8px', marginBottom: '30px', overflowX: 'auto', paddingBottom: '10px' }}>
-              {sections.map((section, idx) => (
-                <button key={section.id} type="button" onClick={() => setCurrentSection(idx)} style={{
-                  padding: '10px 16px',
-                  borderRadius: '6px',
-                  border: idx === currentSection ? '2px solid #6366f1' : '1px solid #ddd',
-                  background: idx === currentSection ? '#e0e7ff' : 'white',
-                  color: idx === currentSection ? '#6366f1' : '#666',
-                  fontWeight: idx === currentSection ? '600' : '500',
-                  cursor: 'pointer',
-                  whiteSpace: 'nowrap',
-                  transition: 'all 0.2s'
-                }}>
-                  {section.title}
-                </button>
-              ))}
-            </div>
+        {/* Error Alert */}
+        {error && (
+          <div className="alert-error">
+            {error}
+          </div>
+        )}
 
-            {/* Current Section */}
+        {/* Main Form */}
+        <form onSubmit={handleSubmit}>
+          {/* Section Navigation Tabs */}
+          <div className="section-nav">
+            {sections.map((section, idx) => (
+              <button 
+                key={section.id} 
+                type="button" 
+                onClick={() => setCurrentSection(idx)}
+                className={`${idx === currentSection ? 'active' : ''} ${idx < currentSection ? 'completed' : ''}`}
+              >
+                {section.title}
+              </button>
+            ))}
+          </div>
+
+          {/* Form Wrapper */}
+          <div className="form-wrapper">
+            {/* Current Section Content */}
             <FormSection id={sections[currentSection].id} />
 
             {/* Navigation Buttons */}
-            <div style={{ marginTop: '40px', display: 'flex', gap: '10px', justifyContent: 'space-between' }}>
-              <button type="button" onClick={() => setCurrentSection(Math.max(0, currentSection - 1))} disabled={currentSection === 0} style={{ padding: '10px 20px', borderRadius: '6px', border: '1px solid #ddd', background: currentSection === 0 ? '#f0f0f0' : 'white', cursor: currentSection === 0 ? 'not-allowed' : 'pointer' }}>
+            <div className="form-navigation">
+              <button 
+                type="button" 
+                onClick={() => setCurrentSection(Math.max(0, currentSection - 1))} 
+                disabled={currentSection === 0}
+                className="form-nav-btn"
+              >
+                <ArrowLeft size={16} />
                 Previous
               </button>
+
               {currentSection === sections.length - 1 ? (
-                <button type="submit" disabled={loading || imageFiles.length === 0} style={{ padding: '10px 30px', borderRadius: '6px', background: imageFiles.length === 0 ? '#ccc' : '#6366f1', color: 'white', border: 'none', cursor: imageFiles.length === 0 ? 'not-allowed' : 'pointer', fontWeight: '600' }}>
-                  {loading ? 'Creating...' : 'Create Listing'}
+                <button 
+                  type="submit" 
+                  disabled={loading || imageFiles.length === 0}
+                  className="form-nav-btn submit"
+                >
+                  {loading ? (
+                    <>
+                      <span className="loading-spinner"></span>
+                      Creating...
+                    </>
+                  ) : (
+                    <>
+                      <CheckCircle size={16} />
+                      Create Listing
+                    </>
+                  )}
                 </button>
               ) : (
-                <button type="button" onClick={() => setCurrentSection(Math.min(sections.length - 1, currentSection + 1))} style={{ padding: '10px 20px', borderRadius: '6px', border: '1px solid #ddd', background: 'white', cursor: 'pointer' }}>
+                <button 
+                  type="button" 
+                  onClick={() => setCurrentSection(Math.min(sections.length - 1, currentSection + 1))}
+                  className="form-nav-btn"
+                >
                   Next
+                  <ArrowLeft size={16} style={{ transform: 'rotate(180deg)' }} />
                 </button>
               )}
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </main>
     </div>
   );

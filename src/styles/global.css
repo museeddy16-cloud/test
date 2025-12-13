@@ -212,3 +212,239 @@ ul {
     border-radius: 6px;
   }
 }
+/* ========================================
+   ADDITIONAL RESPONSIVE UTILITIES
+   ======================================== */
+
+/* Flexible Grid System */
+.grid-responsive {
+  display: grid;
+  gap: 20px;
+}
+
+@media (min-width: 1200px) {
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 1199px) and (min-width: 768px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 767px) {
+  .grid-4,
+  .grid-3,
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Flexible Flexbox */
+.flex-responsive {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+@media (max-width: 768px) {
+  .flex-responsive > * {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+}
+
+/* Typography Responsive */
+@media (max-width: 768px) {
+  h1 { font-size: 24px; }
+  h2 { font-size: 20px; }
+  h3 { font-size: 18px; }
+  h4 { font-size: 16px; }
+  h5 { font-size: 14px; }
+  h6 { font-size: 12px; }
+}
+
+/* Safe Area Padding for Mobile */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
+  }
+
+  @media (max-width: 480px) {
+    body {
+      padding-left: max(10px, env(safe-area-inset-left));
+      padding-right: max(10px, env(safe-area-inset-right));
+    }
+  }
+}
+
+/* Touch-friendly Elements */
+@media (hover: none) and (pointer: coarse) {
+  button,
+  a,
+  input[type="checkbox"],
+  input[type="radio"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .btn {
+    min-height: 44px;
+    padding: 12px 20px;
+  }
+}
+
+/* Responsive Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Responsive Tables */
+table {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  table {
+    font-size: 14px;
+  }
+
+  tbody tr {
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px;
+  }
+
+  th {
+    display: none;
+  }
+
+  td {
+    display: block;
+    text-align: right;
+    padding: 10px 0;
+    border: none;
+  }
+
+  td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: 600;
+    color: var(--primary);
+  }
+}
+
+/* Responsive Forms */
+@media (max-width: 768px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px; /* Prevents auto-zoom on iOS */
+    width: 100%;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+/* Responsive Modals & Dropdowns */
+@media (max-width: 768px) {
+  .modal,
+  .dropdown {
+    width: 90%;
+    max-width: 100%;
+  }
+}
+
+/* Responsive Navigation */
+@media (max-width: 768px) {
+  nav {
+    position: relative;
+  }
+
+  .nav-hamburger {
+    display: block;
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg-white);
+    border-radius: 0 0 8px 8px;
+    padding: 15px;
+    display: none;
+  }
+
+  .nav-menu.open {
+    display: block;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background: white;
+  }
+
+  .no-print,
+  nav,
+  footer,
+  .sidebar {
+    display: none;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  .card {
+    page-break-inside: avoid;
+  }
+}
+
+/* Dark Mode Support (future) */
+@media (prefers-color-scheme: dark) {
+  /* Will implement dark mode variables later */
+}
+
+/* Container Queries (future) */
+@supports (container-type: inline-size) {
+  .container {
+    container-type: inline-size;
+  }
+
+  @container (min-width: 700px) {
+    .responsive-element {
+      /* responsive styles */
+    }
+  }
+}

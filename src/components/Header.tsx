@@ -157,6 +157,9 @@ export default function Header() {
                     <button onClick={() => { navigate('/host-onboarding'); setIsUserMenuOpen(false); }}>
                       Host your home
                     </button>
+                    <button onClick={() => { navigate('/pricing'); setIsUserMenuOpen(false); }}>
+                      Advertise with us
+                    </button>
                     <button onClick={() => { navigate('/help'); setIsUserMenuOpen(false); }}>
                       Help Center
                     </button>

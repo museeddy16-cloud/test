@@ -2823,3 +2823,534 @@ input:checked + .toggle-switch:before {
   padding: 8px 12px !important;
   font-size: 0.85rem !important;
 }
+/* ========================================
+   RESPONSIVE DESIGN - TABLET & MOBILE
+   ======================================== */
+
+/* Large Tablets (1024px - 1200px) */
+@media (max-width: 1200px) {
+  .dashboard-main {
+    margin-left: 250px;
+    padding: 25px;
+  }
+
+  .stats-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bookings-section {
+    grid-column: span 1;
+  }
+
+  .wishlist-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+/* Tablets (768px - 1024px) */
+@media (max-width: 1024px) {
+  .dashboard-layout {
+    flex-direction: column;
+  }
+
+  .dashboard-main {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .sidebar-toggle {
+    display: block;
+  }
+
+  .dashboard-header {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 24px;
+  }
+
+  .dashboard-header p {
+    width: 100%;
+  }
+
+  .stats-section {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .stat-card {
+    padding: 18px;
+  }
+
+  .stat-icon {
+    width: 45px;
+    height: 45px;
+  }
+
+  .stat-value {
+    font-size: 20px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bookings-section {
+    grid-column: span 1;
+    padding: 18px;
+  }
+
+  .bookings-table th,
+  .bookings-table td {
+    padding: 12px 8px;
+    font-size: 13px;
+  }
+
+  .host-dashboard-badge {
+    position: static;
+    display: inline-block;
+    margin-top: 15px;
+  }
+
+  .wishlist-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+  }
+
+  .listing-form {
+    max-width: 100%;
+  }
+}
+
+/* Small Tablets & Large Phones (600px - 768px) */
+@media (max-width: 768px) {
+  .dashboard-main {
+    padding: 15px;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 20px;
+  }
+
+  .stats-section {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 16px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+  }
+
+  .stat-value {
+    font-size: 18px;
+  }
+
+  .stat-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .section-header h2 {
+    font-size: 16px;
+  }
+
+  .bookings-section {
+    padding: 15px;
+  }
+
+  .bookings-table {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .bookings-table table {
+    min-width: 600px;
+  }
+
+  .bookings-table th,
+  .bookings-table td {
+    padding: 10px 6px;
+    font-size: 12px;
+  }
+
+  .messages-section {
+    padding: 15px;
+  }
+
+  .message-item {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .message-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .message-content h4 {
+    font-size: 13px;
+  }
+
+  .message-content p {
+    font-size: 12px;
+  }
+
+  .wishlist-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .wishlist-card-body {
+    padding: 14px;
+  }
+
+  .wishlist-card-body h3 {
+    font-size: 14px;
+  }
+
+  .btn-heart {
+    width: 32px;
+    height: 32px;
+    top: 8px;
+    right: 8px;
+  }
+
+  .dashboard-content {
+    gap: 20px;
+  }
+}
+
+/* Mobile Phones (480px - 600px) */
+@media (max-width: 600px) {
+  .dashboard-main {
+    padding: 12px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 18px;
+  }
+
+  .dashboard-header p {
+    font-size: 12px;
+  }
+
+  .stats-section {
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 14px;
+  }
+
+  .stat-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .stat-value {
+    font-size: 16px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+  }
+
+  .stat-change {
+    top: 12px;
+    right: 12px;
+    font-size: 11px;
+  }
+
+  .section-header h2 {
+    font-size: 14px;
+  }
+
+  .bookings-section {
+    padding: 12px;
+  }
+
+  .bookings-table th,
+  .bookings-table td {
+    padding: 8px 4px;
+    font-size: 11px;
+  }
+
+  .messages-section {
+    padding: 12px;
+  }
+
+  .message-item {
+    padding: 8px;
+  }
+
+  .message-avatar {
+    width: 36px;
+    height: 36px;
+  }
+
+  .message-content h4 {
+    font-size: 12px;
+  }
+
+  .message-content p {
+    font-size: 11px;
+  }
+
+  .wishlist-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+
+  .wishlist-image-container .wishlist-image {
+    height: 150px;
+  }
+
+  .wishlist-card-body {
+    padding: 12px;
+  }
+
+  .wishlist-card-body h3 {
+    font-size: 13px;
+  }
+
+  .wishlist-actions {
+    flex-direction: column;
+  }
+
+  .wishlist-actions button {
+    width: 100%;
+  }
+
+  .btn-small {
+    padding: 6px 10px !important;
+    font-size: 11px !important;
+  }
+}
+
+/* Extra Small Phones (< 480px) */
+@media (max-width: 480px) {
+  .dashboard-main {
+    padding: 10px;
+  }
+
+  .dashboard-header {
+    margin-bottom: 15px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 16px;
+  }
+
+  .dashboard-header p {
+    font-size: 11px;
+  }
+
+  .stats-section {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .stat-card {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .stat-icon {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+  }
+
+  .stat-value {
+    font-size: 14px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+  }
+
+  .stat-change {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+
+  .stat-info {
+    gap: 2px;
+  }
+
+  .dashboard-content {
+    gap: 15px;
+  }
+
+  .section-header {
+    margin-bottom: 15px;
+  }
+
+  .section-header h2 {
+    font-size: 13px;
+  }
+
+  .view-all {
+    font-size: 12px;
+  }
+
+  .bookings-section {
+    padding: 10px;
+    border-radius: 12px;
+  }
+
+  .bookings-table {
+    font-size: 10px;
+  }
+
+  .bookings-table th,
+  .bookings-table td {
+    padding: 6px 3px;
+  }
+
+  .status-badge {
+    padding: 2px 8px;
+    font-size: 10px;
+  }
+
+  .messages-section {
+    padding: 10px;
+    border-radius: 12px;
+  }
+
+  .message-item {
+    padding: 6px;
+    gap: 8px;
+  }
+
+  .message-avatar {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+  }
+
+  .message-content h4 {
+    font-size: 11px;
+  }
+
+  .message-content p {
+    font-size: 10px;
+  }
+
+  .wishlist-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 8px;
+  }
+
+  .wishlist-image-container .wishlist-image {
+    height: 120px;
+  }
+
+  .wishlist-card-body {
+    padding: 10px;
+  }
+
+  .wishlist-card-body h3 {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .wishlist-info .location {
+    font-size: 10px;
+  }
+
+  .wishlist-footer {
+    margin: 10px 0;
+  }
+
+  .price-rating {
+    font-size: 11px;
+  }
+
+  .btn-heart {
+    width: 28px;
+    height: 28px;
+    top: 6px;
+    right: 6px;
+  }
+
+  .wishlist-actions {
+    gap: 6px;
+  }
+
+  .btn-small {
+    padding: 4px 8px !important;
+    font-size: 10px !important;
+  }
+}
+
+/* Landscape Mode Adjustments */
+@media (max-height: 600px) and (orientation: landscape) {
+  .dashboard-main {
+    padding: 15px;
+  }
+
+  .stats-section {
+    margin-bottom: 15px;
+  }
+
+  .stat-card {
+    padding: 12px;
+  }
+
+  .dashboard-content {
+    gap: 15px;
+  }
+}
+
+/* Accessibility - Reduce Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .dashboard-main {
+    margin-left: 0;
+    padding: 0;
+  }
+
+  .sidebar-toggle,
+  .host-dashboard-badge {
+    display: none;
+  }
+
+  .stat-card,
+  .bookings-section,
+  .messages-section {
+    page-break-inside: avoid;
+  }
+}

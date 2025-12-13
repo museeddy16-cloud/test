@@ -4,6 +4,7 @@ import { Star, MapPin, Users, Bed, Bath, ChevronLeft, Heart, Share2, ChevronRigh
 import { useAuth } from '../context/AuthContext';
 import { getApiUrl } from '../config/api';
 import './PropertyDetail.css';
+import './PropertyDetailLuxury.css';
 
 interface Property {
   id: string;
@@ -83,6 +84,7 @@ export default function PropertyDetail() {
   const [bookingSuccess, setBookingSuccess] = useState(false);
   const [bookingError, setBookingError] = useState('');
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const [activeTab, setActiveTab] = useState('overview');
 
   useEffect(() => {
     fetchProperty();
@@ -258,22 +260,47 @@ export default function PropertyDetail() {
   const images = property.images?.length > 0 ? property.images : fallbackProperties[0].images;
 
   return (
-    <div className="property-detail">
-      <div className="property-header">
-        <button className="back-btn" onClick={() => navigate(-1)}>
-          <ChevronLeft size={24} /> Back
-        </button>
-        <div className="header-actions">
-          <button 
-            className={`action-btn ${isWishlisted ? 'active' : ''}`} 
-            onClick={handleWishlist}
-          >
-            <Heart size={20} fill={isWishlisted ? '#e53e3e' : 'none'} color={isWishlisted ? '#e53e3e' : 'currentColor'} />
-          </button>
-          <button className="action-btn"><Share2 size={20} /></button>
+    <div className="property-detail-luxury">
+      {/* Sticky Header with Price */}
+      <div className="property-header-luxury">
+        <div className="header-luxury-container">
+          <div className="property-title-section">
+            <h1>{property.title}</h1>
+            <div className="property-meta">
+              <div className="property-rating">
+                <Star size={16} fill="#ffc107" color="#ffc107" />
+                <span>{getAverageRating()}</span>
+                <span className="review-count">({property._count?.reviews || property.reviews?.length || 0} reviews)</span>
+              </div>
+              <div className="property-location">
+                <MapPin size={16} />
+                <span>{property.location || `${property.city}, ${property.country}`}</span>
+              </div>
+            </div>
+          </div>
+          <div className="property-price-display">
+            <span className="price-currency">RWF</span>
+            <span>{Math.floor(property.price).toLocaleString()}</span>
+            <span className="price-period">/ night</span>
+          </div>
+          <div className="header-actions-luxury">
+            <button 
+              className={`action-btn ${isWishlisted ? 'active' : ''}`} 
+              onClick={handleWishlist}
+              title="Add to wishlist"
+            >
+              <Heart size={20} fill={isWishlisted ? '#e53e3e' : 'none'} color={isWishlisted ? '#e53e3e' : 'currentColor'} />
+              Wishlist
+            </button>
+            <button className="action-btn" title="Share">
+              <Share2 size={20} />
+              Share
+            </button>
+          </div>
         </div>
       </div>
 
+      {/* Gallery Modal */}
       {showGalleryModal && (
         <div className="gallery-modal" onClick={() => setShowGalleryModal(false)}>
           <button className="modal-close" onClick={() => setShowGalleryModal(false)}>
@@ -292,202 +319,310 @@ export default function PropertyDetail() {
         </div>
       )}
 
-      <div className="property-image-section">
-        <div className="gallery-grid">
-          <div className="main-image" onClick={() => { setSelectedImage(0); setShowGalleryModal(true); }}>
+      {/* Premium Gallery Grid */}
+      <div className="gallery-luxury">
+        <div className="gallery-grid-luxury">
+          <div className="gallery-main-luxury" onClick={() => { setSelectedImage(0); setShowGalleryModal(true); }}>
             <img src={images[0]} alt={property.title} />
           </div>
-          <div className="side-images">
-            {images.slice(1, 4).map((img, idx) => (
-              <div key={idx} className="side-image" onClick={() => { setSelectedImage(idx + 1); setShowGalleryModal(true); }}>
-                <img src={img} alt={`Gallery ${idx + 1}`} />
-              </div>
-            ))}
-          </div>
-          <button className="view-all-gallery" onClick={() => { setSelectedImage(0); setShowGalleryModal(true); }}>
-            <span>View all {images.length} photos</span>
-          </button>
+          {images.slice(1, 4).map((img, idx) => (
+            <div key={idx} className="gallery-item" onClick={() => { setSelectedImage(idx + 1); setShowGalleryModal(true); }}>
+              <img src={img} alt={`Gallery ${idx + 1}`} />
+              {idx === 2 && images.length > 4 && (
+                <div className="gallery-item-overlay">+{images.length - 4} more</div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
 
-      <div className="property-content">
+      {/* Main Content with Tabs and Sidebar */}
+      <div className="property-content-luxury">
         <div className="property-main">
-          <h1>{property.title}</h1>
-          <div className="property-meta">
-            <div className="property-rating">
-              <Star size={16} fill="#ffc107" color="#ffc107" />
-              <span>{getAverageRating()}</span>
-              <span className="review-count">({property._count?.reviews || property.reviews?.length || 0} reviews)</span>
-            </div>
-            <div className="property-location">
-              <MapPin size={16} />
-              <span>{property.location || `${property.city}, ${property.country}`}</span>
-            </div>
+          {/* Tab Navigation */}
+          <div className="property-tabs-luxury">
+            {['overview', 'amenities', 'package', 'rates', 'calendar'].map(tab => (
+              <button
+                key={tab}
+                className={`tab-button-luxury ${activeTab === tab ? 'active' : ''}`}
+                onClick={() => setActiveTab(tab)}
+              >
+                {tab === 'overview' && 'Overview'}
+                {tab === 'amenities' && 'Amenities'}
+                {tab === 'package' && 'Package'}
+                {tab === 'rates' && 'Rates'}
+                {tab === 'calendar' && 'Calendar'}
+              </button>
+            ))}
           </div>
 
-          <div className="property-details-grid">
-            <div className="detail-item">
-              <Users size={20} />
-              <span>{property.maxGuests} guests</span>
-            </div>
-            <div className="detail-item">
-              <Bed size={20} />
-              <span>{property.bedrooms} bedrooms</span>
-            </div>
-            <div className="detail-item">
-              <Bath size={20} />
-              <span>{property.bathrooms} bathrooms</span>
-            </div>
-          </div>
-
-          <div className="property-section">
-            <h2>About this place</h2>
-            <p>{property.description}</p>
-          </div>
-
-          <div className="property-section">
-            <h2>What this place offers</h2>
-            <div className="amenities-grid">
-              {property.amenities?.map((amenity, idx) => (
-                <div key={idx} className="amenity-item">
-                  <Check size={18} />
-                  <span>{amenity}</span>
+          {/* Tab Content */}
+          <div className="tab-content-luxury">
+            {/* Overview Tab */}
+            {activeTab === 'overview' && (
+              <div>
+                <div className="property-about">
+                  <h2>About this place</h2>
+                  <p>{property.description}</p>
                 </div>
-              ))}
-            </div>
-          </div>
 
-          {property.host && (
-            <div className="property-section host-section">
-              <h2>Hosted by {property.host.firstName} {property.host.lastName}</h2>
-              <div className="host-info">
-                <div className="host-avatar">
-                  {property.host.avatar ? (
-                    <img src={property.host.avatar} alt={property.host.firstName} />
-                  ) : (
-                    <div className="avatar-placeholder">
-                      {property.host.firstName[0]}{property.host.lastName[0]}
+                <div className="property-about">
+                  <h2>Property Details</h2>
+                  <div className="property-details-grid">
+                    <div className="detail-item">
+                      <Users size={20} />
+                      <span><strong>{property.maxGuests}</strong> guests</span>
                     </div>
-                  )}
-                </div>
-                <div className="host-details">
-                  <p>Superhost</p>
-                  <p>Response rate: 100%</p>
+                    <div className="detail-item">
+                      <Bed size={20} />
+                      <span><strong>{property.bedrooms}</strong> bedrooms</span>
+                    </div>
+                    <div className="detail-item">
+                      <Bath size={20} />
+                      <span><strong>{property.bathrooms}</strong> bathrooms</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {property.reviews && property.reviews.length > 0 && (
-            <div className="property-section">
-              <h2>Reviews</h2>
-              <div className="reviews-list">
-                {property.reviews.slice(0, 5).map((review) => (
-                  <div key={review.id} className="review-card">
-                    <div className="review-header">
-                      <div className="review-user">
-                        <div className="user-avatar">
-                          {review.user.firstName[0]}{review.user.lastName[0]}
-                        </div>
-                        <div>
-                          <h4>{review.user.firstName} {review.user.lastName}</h4>
-                          <span>{new Date(review.createdAt).toLocaleDateString()}</span>
-                        </div>
+            {/* Amenities Tab - Organized by Sections */}
+            {activeTab === 'amenities' && (
+              <div className="amenities-sections">
+                {property.amenities && property.amenities.length > 0 ? (
+                  <>
+                    {/* Living Room Amenities */}
+                    {property.amenities.slice(0, 3).length > 0 && (
+                      <div className="amenity-section">
+                        <h3>Living Area</h3>
+                        <ul>
+                          {property.amenities.slice(0, 3).map((amenity, idx) => (
+                            <li key={idx}>
+                              <span className="amenity-bullet"></span>
+                              <span>{amenity}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                      <div className="review-rating">
-                        <Star size={14} fill="#ffc107" color="#ffc107" />
-                        <span>{review.rating}</span>
+                    )}
+
+                    {/* Bedroom Amenities */}
+                    {property.amenities.slice(3, 6).length > 0 && (
+                      <div className="amenity-section">
+                        <h3>Bedroom</h3>
+                        <ul>
+                          {property.amenities.slice(3, 6).map((amenity, idx) => (
+                            <li key={idx}>
+                              <span className="amenity-bullet"></span>
+                              <span>{amenity}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                    </div>
-                    <p>{review.comment}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
+                    )}
 
-        <div className="property-sidebar">
-          <div className="booking-card">
-            {bookingSuccess ? (
-              <div className="booking-success">
-                <Check size={48} color="#48bb78" />
-                <h3>Booking Confirmed!</h3>
-                {bookingRef && <p className="booking-ref">Reference: {bookingRef.slice(-8).toUpperCase()}</p>}
-                <p>Redirecting to your reservations...</p>
-              </div>
-            ) : (
-              <>
-                <div className="booking-price">
-                  <span className="price">${property.price}</span>
-                  <span className="per-night">/ night</span>
-                </div>
+                    {/* Kitchen Amenities */}
+                    {property.amenities.slice(6, 9).length > 0 && (
+                      <div className="amenity-section">
+                        <h3>Kitchen</h3>
+                        <ul>
+                          {property.amenities.slice(6, 9).map((amenity, idx) => (
+                            <li key={idx}>
+                              <span className="amenity-bullet"></span>
+                              <span>{amenity}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
 
-                <div className="booking-form">
-                  <div className="date-inputs">
-                    <div className="date-input">
-                      <label>Check-in</label>
-                      <input 
-                        type="date" 
-                        value={checkIn} 
-                        onChange={(e) => setCheckIn(e.target.value)}
-                        min={new Date().toISOString().split('T')[0]}
-                      />
-                    </div>
-                    <div className="date-input">
-                      <label>Check-out</label>
-                      <input 
-                        type="date" 
-                        value={checkOut} 
-                        onChange={(e) => setCheckOut(e.target.value)}
-                        min={checkIn || new Date().toISOString().split('T')[0]}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="guests-input">
-                    <label>Guests</label>
-                    <select value={guests} onChange={(e) => setGuests(parseInt(e.target.value))}>
-                      {[...Array(property.maxGuests)].map((_, i) => (
-                        <option key={i + 1} value={i + 1}>{i + 1} guest{i > 0 ? 's' : ''}</option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {bookingError && (
-                    <div className="booking-error">{bookingError}</div>
-                  )}
-
-                  <button 
-                    className="reserve-btn" 
-                    onClick={handleBooking}
-                    disabled={bookingLoading}
-                  >
-                    {bookingLoading ? 'Processing...' : user ? 'Reserve' : 'Login to Book'}
-                  </button>
-                </div>
-
-                {nights > 0 && (
-                  <div className="booking-summary">
-                    <div className="summary-row">
-                      <span>${property.price} x {nights} night{nights > 1 ? 's' : ''}</span>
-                      <span>${property.price * nights}</span>
-                    </div>
-                    <div className="summary-row">
-                      <span>Service fee</span>
-                      <span>${Math.round(property.price * nights * 0.12)}</span>
-                    </div>
-                    <div className="summary-row total">
-                      <span>Total</span>
-                      <span>${Math.round(calculateTotal())}</span>
-                    </div>
-                  </div>
+                    {/* Bathroom Amenities */}
+                    {property.amenities.slice(9).length > 0 && (
+                      <div className="amenity-section">
+                        <h3>Bathroom</h3>
+                        <ul>
+                          {property.amenities.slice(9).map((amenity, idx) => (
+                            <li key={idx}>
+                              <span className="amenity-bullet"></span>
+                              <span>{amenity}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <p>No amenities listed for this property.</p>
                 )}
-              </>
+              </div>
+            )}
+
+            {/* Package Tab */}
+            {activeTab === 'package' && (
+              <div className="property-about">
+                <h2>Available Packages</h2>
+                <p>This property offers flexible booking options:</p>
+                <ul style={{ marginTop: '16px', paddingLeft: '20px' }}>
+                  <li>Nightly rate: RWF {Math.floor(property.price).toLocaleString()}</li>
+                  <li>Weekly discount: Up to 10% off</li>
+                  <li>Monthly discount: Up to 20% off</li>
+                  <li>Flexible cancellation available</li>
+                </ul>
+              </div>
+            )}
+
+            {/* Rates Tab */}
+            {activeTab === 'rates' && (
+              <div className="property-about">
+                <h2>Pricing Information</h2>
+                <div style={{ marginTop: '24px', padding: '20px', background: '#f8f9fa', borderRadius: '8px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px', paddingBottom: '12px', borderBottom: '1px solid #e0e0e0' }}>
+                    <span>Nightly Rate</span>
+                    <strong>RWF {Math.floor(property.price).toLocaleString()}</strong>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px', paddingBottom: '12px', borderBottom: '1px solid #e0e0e0' }}>
+                    <span>Cleaning Fee</span>
+                    <strong>RWF {Math.floor(property.price * 0.1).toLocaleString()}</strong>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px', paddingBottom: '12px', borderBottom: '1px solid #e0e0e0' }}>
+                    <span>Service Fee (per booking)</span>
+                    <strong>12%</strong>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '16px', fontWeight: '700' }}>
+                    <span>Total per night (estimated)</span>
+                    <strong>RWF {Math.floor(property.price * 1.22).toLocaleString()}</strong>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Calendar Tab */}
+            {activeTab === 'calendar' && (
+              <div className="property-about">
+                <h2>Availability Calendar</h2>
+                <p style={{ marginTop: '16px', color: 'var(--text-light)' }}>
+                  Check availability and book your dates. This property is available for bookings starting from today.
+                </p>
+                <div style={{ marginTop: '24px', padding: '20px', background: '#f8f9fa', borderRadius: '8px', textAlign: 'center' }}>
+                  <p style={{ color: 'var(--text-light)', marginBottom: '12px' }}>Interactive calendar feature</p>
+                  <p style={{ fontSize: '12px', color: 'var(--text-light)' }}>Use the booking form on the right to select your check-in and check-out dates</p>
+                </div>
+              </div>
             )}
           </div>
         </div>
+
+        {/* Booking Card Sidebar */}
+        <div className="booking-card-luxury">
+          {bookingSuccess ? (
+            <div className="booking-success">
+              <Check size={48} color="#48bb78" />
+              <h3>Booking Confirmed!</h3>
+              {bookingRef && <p className="booking-ref">Reference: {bookingRef.slice(-8).toUpperCase()}</p>}
+              <p>Redirecting to your reservations...</p>
+            </div>
+          ) : (
+            <>
+              <div className="booking-price-luxury">
+                <span className="currency">RWF</span>
+                <span>{Math.floor(property.price).toLocaleString()}</span>
+                <span className="period">/ night</span>
+              </div>
+
+              <div className="booking-form">
+                <div className="form-row">
+                  <div className="form-group">
+                    <label>Arrive</label>
+                    <input 
+                      type="date" 
+                      value={checkIn} 
+                      onChange={(e) => setCheckIn(e.target.value)}
+                      min={new Date().toISOString().split('T')[0]}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Departure</label>
+                    <input 
+                      type="date" 
+                      value={checkOut} 
+                      onChange={(e) => setCheckOut(e.target.value)}
+                      min={checkIn || new Date().toISOString().split('T')[0]}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label>Adults</label>
+                    <select value={guests} onChange={(e) => setGuests(parseInt(e.target.value))}>
+                      {[...Array(property.maxGuests)].map((_, i) => (
+                        <option key={i + 1} value={i + 1}>{i + 1}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label>Children</label>
+                    <select>
+                      <option>0</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3+</option>
+                    </select>
+                  </div>
+                </div>
+
+                {bookingError && (
+                  <div className="booking-error">{bookingError}</div>
+                )}
+
+                {nights > 0 && (
+                  <div className="total-price">
+                    <span>Total ({nights} nights)</span>
+                    <strong>RWF {Math.floor(calculateTotal()).toLocaleString()}</strong>
+                  </div>
+                )}
+
+                <button 
+                  className="booking-btn-luxury" 
+                  onClick={handleBooking}
+                  disabled={bookingLoading}
+                >
+                  {bookingLoading ? 'PROCESSING...' : user ? 'BOOK NOW' : 'LOGIN TO BOOK'}
+                </button>
+              </div>
+            </>
+          )}
+        </div>
       </div>
+
+      {/* Related Properties Section */}
+      {fallbackProperties.length > 1 && (
+        <div className="related-properties-luxury">
+          <h2>Similar Accommodations</h2>
+          <div className="properties-grid-luxury">
+            {fallbackProperties.slice(0, 4).map(prop => (
+              <div 
+                key={prop.id} 
+                className="property-card-luxury"
+                onClick={() => navigate(`/property/${prop.id}`)}
+              >
+                <img src={prop.images[0]} alt={prop.title} className="property-card-image" />
+                <div className="property-card-info">
+                  <h3 className="property-card-title">{prop.title}</h3>
+                  <div className="property-card-price">
+                    RWF {Math.floor(prop.price).toLocaleString()}
+                    <span style={{ fontSize: '12px', fontWeight: '400', color: 'var(--text-light)' }}> /night</span>
+                  </div>
+                  <div className="property-card-details">
+                    <MapPin size={12} style={{ display: 'inline', marginRight: '4px' }} />
+                    {prop.location}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

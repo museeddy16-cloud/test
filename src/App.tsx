@@ -33,6 +33,7 @@ import Careers from './pages/Careers';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Hosting from './pages/Hosting';
+import Pricing from './pages/Pricing';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminUsers from './pages/admin/AdminUsers';
 import AdminProperties from './pages/admin/AdminProperties';
@@ -79,6 +80,7 @@ function App() {
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/hosting" element={<Hosting />} />
+              <Route path="/pricing" element={<Pricing />} />
             </Route>
             
             <Route element={<AuthLayout />}>

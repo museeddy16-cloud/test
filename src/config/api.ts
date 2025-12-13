@@ -1,5 +1,5 @@
 // API Configuration - supports both development and production
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://iru-voyage-be-production.up.railway.app/api';
 
 export const apiConfig = {
   baseURL: API_BASE_URL,
