@@ -6,7 +6,7 @@
 }
 
 .shared-page-hero {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #122DBA 0%, #0d1f7d 100%);
   color: white;
   padding: 80px 20px;
   text-align: center;
@@ -112,7 +112,7 @@
 }
 
 .topic-link:hover {
-  color: #764ba2;
+  color: #0d1f7d;
   transform: translateX(5px);
 }
 
@@ -479,7 +479,7 @@
 }
 
 .hosting-section.cta {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #122DBA 0%, #0d1f7d 100%);
   color: white;
   padding: 60px;
   border-radius: 12px;
@@ -568,7 +568,7 @@
 }
 
 .btn-primary:hover {
-  background: #764ba2;
+  background: #0d1f7d;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
@@ -1253,7 +1253,7 @@
 }
 
 .contact-info-card a:hover {
-  color: #764ba2;
+  color: #0d1f7d;
   text-decoration: underline;
 }
 
@@ -1288,7 +1288,7 @@
 .social-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-  color: #764ba2;
+  color: #0d1f7d;
 }
 
 .social-card svg {

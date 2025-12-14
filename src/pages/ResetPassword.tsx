@@ -112,7 +112,7 @@ export default function ResetPassword() {
                       <img src={logo} alt="IRU Voyage" style={{height: '70px', objectFit: 'contain', cursor: 'pointer'}} />
                     </Link>
                   </div>
-                  <div style={{ fontSize: '48px', color: '#667eea', marginBottom: '1rem' }}>
+                  <div style={{ fontSize: '48px', color: '#122DBA', marginBottom: '1rem' }}>
                     ✓
                   </div>
                   <h3 className="mb-3">Password Reset!</h3>

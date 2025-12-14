@@ -10,7 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, #122DBA 0%, #0d1f7d 50%, #3a4acc 100%);
   padding: 20px;
   overflow: hidden;
 }
@@ -49,7 +49,7 @@
 
 /* ===================== LEFT SIDE - IMAGE SECTION ===================== */
 .auth-image-section {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, #122DBA 0%, #0d1f7d 50%, #3a4acc 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -636,7 +636,7 @@
   }
 
   .input-wrapper:focus-within {
-    border-color: #667eea;
+    border-color: #122DBA;
     background: #fafafa;
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.08);
   }
@@ -659,7 +659,7 @@
 }
 
 .input-wrapper:focus-within {
-  border-color: #667eea;
+  border-color: #122DBA;
   background: var(--bg-white);
   box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1), 0 4px 12px rgba(102, 126, 234, 0.15);
   transform: translateY(-2px);
@@ -678,7 +678,7 @@
 }
 
 .input-wrapper:focus-within svg {
-  color: #667eea;
+  color: #122DBA;
 }
 
 .input-wrapper input {
@@ -721,7 +721,7 @@
 }
 
 .password-toggle:hover {
-  color: #667eea;
+  color: #122DBA;
 }
 
 .form-row {
@@ -789,25 +789,25 @@
   width: 16px;
   height: 16px;
   cursor: pointer;
-  accent-color: #667eea;
+  accent-color: #122DBA;
   border-radius: 3px;
 }
 
 .checkbox-label a {
-  color: #667eea;
+  color: #122DBA;
   font-weight: 600;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .checkbox-label a:hover {
-  color: #764ba2;
+  color: #0d1f7d;
   text-decoration: underline;
 }
 
 .forgot-link {
   font-size: 14px;
-  color: #667eea;
+  color: #122DBA;
   font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
@@ -818,7 +818,7 @@
 }
 
 .forgot-link:hover {
-  color: #764ba2;
+  color: #0d1f7d;
   text-decoration: underline;
 }
 
@@ -827,7 +827,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #667eea;
+  background: #122DBA;
   color: white;
   padding: 12px 24px;
   border: none;
@@ -934,8 +934,8 @@
 
 .social-btn:hover {
   background: #e8e8e8;
-  border-color: #667eea;
-  color: #667eea;
+  border-color: #122DBA;
+  color: #122DBA;
 }
 
 .social-btn svg {
@@ -958,7 +958,7 @@
 }
 
 .auth-footer a {
-  color: #667eea;
+  color: #122DBA;
   font-weight: 600;
   text-decoration: none;
   transition: color 0.2s ease;

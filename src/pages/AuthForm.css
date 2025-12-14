@@ -93,7 +93,7 @@ body {
   background-repeat: no-repeat;
   background-attachment: scroll;
   min-width: 45%;
-  background-color: #667eea;
+  background-color: #122DBA;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -183,7 +183,7 @@ body {
 }
 
 .social-icon:hover {
-  background-color: #667eea;
+  background-color: #122DBA;
   color: white;
 }
 
@@ -221,7 +221,7 @@ body {
 
 .form-control:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: #122DBA;
   background-color: white;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
@@ -255,7 +255,7 @@ body {
 .form-control:not(:placeholder-shown) + .form-control-placeholder {
   top: -10px;
   font-size: 11px;
-  color: #667eea;
+  color: #122DBA;
   background-color: white;
   padding: 0 4px;
 }
@@ -278,7 +278,7 @@ body {
 }
 
 .field-icon:hover {
-  color: #667eea;
+  color: #122DBA;
 }
 
 /* CHECKBOX */
@@ -316,8 +316,8 @@ body {
 }
 
 .checkbox-wrap input:checked ~ .checkmark {
-  background-color: #667eea;
-  border-color: #667eea;
+  background-color: #122DBA;
+  border-color: #122DBA;
 }
 
 .checkmark:after {
@@ -338,8 +338,8 @@ body {
 }
 
 .checkbox-primary input:checked ~ .checkmark {
-  background-color: #667eea;
-  border-color: #667eea;
+  background-color: #122DBA;
+  border-color: #122DBA;
 }
 
 .mb-0 {
@@ -362,7 +362,7 @@ body {
 }
 
 .btn-primary {
-  background-color: #667eea;
+  background-color: #122DBA;
   color: white;
 }
 
@@ -427,7 +427,7 @@ body {
 }
 
 .form-group.d-md-flex a {
-  color: #667eea;
+  color: #122DBA;
   text-decoration: none;
   font-size: 13px;
   transition: color 0.3s ease;
@@ -447,7 +447,7 @@ body {
 }
 
 .text-center a {
-  color: #667eea;
+  color: #122DBA;
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;

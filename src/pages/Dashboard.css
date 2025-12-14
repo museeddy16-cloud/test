@@ -16,7 +16,7 @@
   position: absolute;
   top: 15px;
   right: 30px;
-  background: linear-gradient(135deg, var(--primary-color), #764ba2);
+  background: linear-gradient(135deg, var(--primary-color), #0d1f7d);
   color: white;
   padding: 6px 16px;
   border-radius: 20px;
@@ -1360,14 +1360,14 @@
 }
 
 .earnings-card {
-  background: linear-gradient(135deg, var(--primary-color), #667eea);
+  background: linear-gradient(135deg, var(--primary-color), #122DBA);
   color: white;
   padding: 30px;
   border-radius: 12px;
   display: flex;
   align-items: center;
   gap: 20px;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 15px rgba(18, 45, 186, 0.3);
 }
 
 .earnings-icon {
@@ -1444,7 +1444,7 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-  background: linear-gradient(180deg, var(--primary-color), #667eea);
+  background: linear-gradient(180deg, var(--primary-color), #122DBA);
   border-radius: 8px 8px 0 0;
 }
 
@@ -1693,7 +1693,7 @@
 }
 
 .payment-card {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #122DBA, #0d1f7d);
   color: white;
   padding: 25px;
   border-radius: 12px;

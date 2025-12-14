@@ -122,7 +122,7 @@ export default function EmailVerification() {
                       <img src={logo} alt="IRU Voyage" style={{height: '70px', objectFit: 'contain', cursor: 'pointer'}} />
                     </Link>
                   </div>
-                  <div style={{ fontSize: '48px', color: '#667eea', marginBottom: '1rem' }}>
+                  <div style={{ fontSize: '48px', color: '#122DBA', marginBottom: '1rem' }}>
                     ✓
                   </div>
                   <h3 className="mb-3">Email Verified!</h3>
@@ -199,7 +199,7 @@ export default function EmailVerification() {
                     style={{
                       background: 'none',
                       border: 'none',
-                      color: '#667eea',
+                      color: '#122DBA',
                       cursor: 'pointer',
                       textDecoration: 'underline',
                       fontSize: '14px',
