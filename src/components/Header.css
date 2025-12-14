@@ -588,21 +588,4 @@
     display: none;
   }
 }
-  }
 
-  .user-dropdown {
-    min-width: 160px;
-    right: -20px;
-  }
-
-  .user-dropdown button {
-    padding: 8px 12px;
-    font-size: 11px;
-  }
-
-  .icon-btn {
-    width: 28px;
-    height: 28px;
-    font-size: 16px;
-  }
-}
