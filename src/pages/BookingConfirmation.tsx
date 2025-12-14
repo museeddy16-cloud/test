@@ -2,11 +2,9 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { CheckCircle, Calendar, MapPin, Users, Download, MessageCircle, Home, ArrowRight } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-
-export default function BookingConfirmation() {
-  const { user } = useAuth();
-  const { bookingId } = useParams<{ bookingId: string }>();
-  const navigate = useNavigate();
+import { getApiUrl } from '../config/api';
+import LoadingSpinner from '../components/LoadingSpinner';
+import '../styles/booking-confirmation.css';
 
 interface BookingData {
   id: string;
@@ -30,9 +28,9 @@ interface BookingData {
 }
 
 export default function BookingConfirmation() {
-  const { bookingId } = useParams();
+  const { user, token } = useAuth();
+  const { bookingId } = useParams<{ bookingId: string }>();
   const navigate = useNavigate();
-  const { token, user } = useAuth();
   const [booking, setBooking] = useState<BookingData | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -95,221 +93,6 @@ export default function BookingConfirmation() {
 
   return (
     <div className="confirmation-page">
-      <style>{`
-        .confirmation-page {
-          min-height: 100vh;
-          background: linear-gradient(135deg, #f0fff0 0%, #fff 50%);
-          padding: 60px 20px;
-        }
-        .confirmation-container {
-          max-width: 800px;
-          margin: 0 auto;
-        }
-        .confirmation-header {
-          text-align: center;
-          margin-bottom: 40px;
-        }
-        .success-icon {
-          width: 80px;
-          height: 80px;
-          background: #e8f5e9;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin: 0 auto 24px;
-        }
-        .success-icon svg {
-          color: #4caf50;
-        }
-        .confirmation-header h1 {
-          font-size: 32px;
-          margin: 0 0 12px;
-          color: #222;
-        }
-        .confirmation-header p {
-          color: #717171;
-          font-size: 16px;
-          margin: 0;
-        }
-        .confirmation-number {
-          display: inline-block;
-          background: #f7f7f7;
-          padding: 8px 16px;
-          border-radius: 20px;
-          font-size: 14px;
-          margin-top: 16px;
-        }
-        .confirmation-card {
-          background: white;
-          border-radius: 16px;
-          box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-          overflow: hidden;
-          margin-bottom: 24px;
-        }
-        .property-banner {
-          height: 200px;
-          background-size: cover;
-          background-position: center;
-          position: relative;
-        }
-        .property-overlay {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          padding: 20px;
-          background: linear-gradient(transparent, rgba(0,0,0,0.7));
-          color: white;
-        }
-        .property-overlay h2 {
-          margin: 0 0 8px;
-          font-size: 24px;
-        }
-        .property-overlay p {
-          margin: 0;
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          font-size: 14px;
-          opacity: 0.9;
-        }
-        .booking-details {
-          padding: 24px;
-        }
-        .details-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 24px;
-          margin-bottom: 24px;
-        }
-        .detail-item {
-          text-align: center;
-          padding: 20px;
-          background: #f7f7f7;
-          border-radius: 12px;
-        }
-        .detail-item svg {
-          color: #FF5A5F;
-          margin-bottom: 12px;
-        }
-        .detail-item h4 {
-          margin: 0 0 4px;
-          font-size: 12px;
-          color: #717171;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-        }
-        .detail-item p {
-          margin: 0;
-          font-weight: 600;
-          font-size: 16px;
-        }
-        .host-info {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 20px;
-          background: #f7f7f7;
-          border-radius: 12px;
-        }
-        .host-info-text h4 {
-          margin: 0 0 4px;
-          font-size: 14px;
-        }
-        .host-info-text p {
-          margin: 0;
-          font-size: 14px;
-          color: #717171;
-        }
-        .btn-message {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding: 10px 20px;
-          background: white;
-          border: 1px solid #ddd;
-          border-radius: 8px;
-          font-size: 14px;
-          cursor: pointer;
-        }
-        .btn-message:hover {
-          background: #f7f7f7;
-        }
-        .price-summary {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding-top: 20px;
-          border-top: 1px solid #eee;
-          margin-top: 20px;
-        }
-        .price-summary h3 {
-          margin: 0;
-          font-size: 14px;
-          color: #717171;
-          font-weight: normal;
-        }
-        .price-summary p {
-          margin: 0;
-          font-size: 24px;
-          font-weight: 600;
-        }
-        .confirmation-actions {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 16px;
-        }
-        .action-btn {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 12px;
-          padding: 24px;
-          background: white;
-          border-radius: 12px;
-          border: 1px solid #eee;
-          cursor: pointer;
-          text-decoration: none;
-          color: #222;
-          transition: all 0.2s;
-        }
-        .action-btn:hover {
-          border-color: #222;
-          background: #f7f7f7;
-        }
-        .action-btn svg {
-          color: #FF5A5F;
-        }
-        .action-btn span {
-          font-size: 14px;
-          font-weight: 500;
-        }
-        .continue-exploring {
-          text-align: center;
-          margin-top: 40px;
-        }
-        .continue-exploring a {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          color: #FF5A5F;
-          text-decoration: none;
-          font-weight: 500;
-        }
-        .continue-exploring a:hover {
-          text-decoration: underline;
-        }
-        @media (max-width: 768px) {
-          .details-grid {
-            grid-template-columns: 1fr;
-          }
-          .confirmation-actions {
-            grid-template-columns: 1fr;
-          }
-        }
-      `}</style>
-
       <div className="confirmation-container">
         <div className="confirmation-header">
           <div className="success-icon">
