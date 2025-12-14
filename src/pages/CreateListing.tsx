@@ -246,7 +246,7 @@ export default function CreateListing() {
         throw new Error(errorData.error || 'Failed to create listing');
       }
 
-      navigate('/host/listings');
+      navigate('/dashboard/listings');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
@@ -676,7 +676,7 @@ export default function CreateListing() {
         {/* Header */}
         <header className="create-listing-header">
           <button 
-            onClick={() => navigate('/host/listings')} 
+            onClick={() => navigate('/dashboard/listings')} 
             className="back-btn"
           >
             <ArrowLeft size={18} />

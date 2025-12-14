@@ -2,7 +2,6 @@ import { Settings, Bell, Lock, User, CreditCard, Eye, EyeOff, Save } from 'lucid
 import { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import './Dashboard.css';
-import '../styles/dashboard-settings.css';
 
 export default function DashboardSettings() {
   const [sidebarOpen, setSidebarOpen] = useState(false);

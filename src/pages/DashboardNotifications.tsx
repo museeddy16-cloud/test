@@ -3,7 +3,6 @@ import { Bell, Check, CheckCheck, Trash2, Menu } from 'lucide-react';
 import { getApiUrl } from '../config/api';
 import Sidebar from '../components/Sidebar';
 import './Dashboard.css';
-import '../styles/dashboard-notifications.css';
 
 interface Notification {
   id: string;
@@ -179,6 +178,153 @@ export default function DashboardNotifications() {
           </div>
         </div>
       </main>
+
+      <style>{`
+        .dashboard-header {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 16px;
+        }
+        
+        .mark-all-btn {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 10px 16px;
+          background: var(--primary);
+          color: white;
+          border-radius: 8px;
+          font-weight: 500;
+          margin-left: auto;
+        }
+        
+        .mark-all-btn:hover {
+          background: var(--primary-dark);
+        }
+        
+        .notifications-container {
+          max-width: 800px;
+          margin: 0 auto;
+        }
+        
+        .loading-state {
+          text-align: center;
+          padding: 60px;
+          color: var(--text-light);
+        }
+        
+        .empty-state-card {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 80px 40px;
+          background: var(--bg-white);
+          border-radius: 12px;
+          text-align: center;
+          color: var(--text-light);
+        }
+        
+        .empty-state-card h3 {
+          margin: 16px 0 8px;
+          color: var(--text-dark);
+        }
+        
+        .notifications-list {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+        
+        .notification-card {
+          display: flex;
+          align-items: flex-start;
+          gap: 16px;
+          padding: 20px;
+          background: var(--bg-white);
+          border-radius: 12px;
+          box-shadow: var(--shadow-sm);
+        }
+        
+        .notification-card.unread {
+          background: rgba(26, 59, 143, 0.03);
+          border-left: 3px solid var(--primary);
+        }
+        
+        .notification-indicator {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          flex-shrink: 0;
+          margin-top: 6px;
+        }
+        
+        .notification-content {
+          flex: 1;
+        }
+        
+        .notification-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          margin-bottom: 8px;
+        }
+        
+        .notification-header h3 {
+          font-size: 15px;
+          font-weight: 600;
+          color: var(--text-dark);
+        }
+        
+        .notification-time {
+          font-size: 12px;
+          color: var(--text-light);
+          white-space: nowrap;
+        }
+        
+        .notification-content p {
+          font-size: 14px;
+          color: var(--text-light);
+          line-height: 1.5;
+        }
+        
+        .notification-actions {
+          display: flex;
+          gap: 8px;
+        }
+        
+        .action-btn {
+          width: 32px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 6px;
+          background: var(--bg-light);
+          color: var(--text-light);
+        }
+        
+        .action-btn:hover {
+          background: var(--border-color);
+        }
+        
+        .action-btn.read:hover {
+          background: #d4edda;
+          color: #155724;
+        }
+        
+        .action-btn.delete:hover {
+          background: #f8d7da;
+          color: #721c24;
+        }
+        
+        @media (max-width: 640px) {
+          .mark-all-btn {
+            width: 100%;
+            justify-content: center;
+          }
+        }
+      `}</style>
     </div>
   );
 }

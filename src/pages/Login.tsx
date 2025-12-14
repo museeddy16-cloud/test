@@ -27,7 +27,6 @@ export default function Login() {
     
     try {
       await login(email, password);
-      
       // Navigate based on user role
       if (user?.role === 'ADMIN') {
         navigate('/admin');

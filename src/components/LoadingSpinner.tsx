@@ -5,8 +5,6 @@ interface LoadingSpinnerProps {
   fullScreen?: boolean;
 }
 
-import '../styles/loading-spinner.css';
-
 export default function LoadingSpinner({
   size = 'medium',
   color = '#FF5A5F',
@@ -23,6 +21,37 @@ export default function LoadingSpinner({
 
   return (
     <div className={`loading-spinner-container ${fullScreen ? 'fullscreen' : ''}`}>
+      <style>{`
+        .loading-spinner-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+        }
+        .loading-spinner-container.fullscreen {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(255, 255, 255, 0.9);
+          z-index: 9999;
+        }
+        .spinner {
+          animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        .loading-text {
+          margin-top: 12px;
+          color: #717171;
+          font-size: 14px;
+        }
+      `}</style>
+      
       <svg
         className="spinner"
         width={spinnerSize}

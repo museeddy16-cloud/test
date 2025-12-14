@@ -58,18 +58,6 @@ import CreateListing from './pages/CreateListing';
 import './styles/global.css';
 import './styles/dashboard.css';
 
-function DashboardRedirect() {
-  const { user } = useAuth();
-  
-  if (user?.role === 'ADMIN') {
-    return <Navigate to="/admin" />;
-  } else if (user?.role === 'HOST') {
-    return <Navigate to="/host" />;
-  } else {
-    return <Navigate to="/account" />;
-  }
-}
-
 function ProtectedRoute({ children, adminOnly = false, hostOnly = false }: { children: React.ReactNode; adminOnly?: boolean; hostOnly?: boolean }) {
   const { user, isLoading } = useAuth();
   
@@ -125,8 +113,6 @@ function App() {
             
             <Route path="/checkout/:bookingId" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
             <Route path="/booking-confirmation/:bookingId" element={<ProtectedRoute><BookingConfirmation /></ProtectedRoute>} />
-            
-            <Route path="/dashboard" element={<ProtectedRoute><DashboardRedirect /></ProtectedRoute>} />
             
             <Route element={<ProtectedRoute adminOnly><AdminLayout /></ProtectedRoute>}>
               <Route path="/admin" element={<AdminDashboard />} />

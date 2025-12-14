@@ -49,24 +49,10 @@ export default function DataTable<T extends Record<string, unknown>>({
 
   const sortedData = [...data].sort((a, b) => {
     if (!sortKey) return 0;
-    const aVal = a[sortKey as keyof T];
-    const bVal = b[sortKey as keyof T];
+    const aVal = a[sortKey];
+    const bVal = b[sortKey];
     if (aVal === bVal) return 0;
-    
-    // Handle different types safely
-    if (typeof aVal === 'string' && typeof bVal === 'string') {
-      const comparison = aVal < bVal ? -1 : 1;
-      return sortOrder === 'asc' ? comparison : -comparison;
-    }
-    
-    if (typeof aVal === 'number' && typeof bVal === 'number') {
-      return sortOrder === 'asc' ? aVal - bVal : bVal - aVal;
-    }
-    
-    // For other types or mixed types, convert to string for comparison
-    const aStr = String(aVal);
-    const bStr = String(bVal);
-    const comparison = aStr < bStr ? -1 : 1;
+    const comparison = aVal < bVal ? -1 : 1;
     return sortOrder === 'asc' ? comparison : -comparison;
   });
 
