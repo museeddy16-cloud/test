@@ -111,64 +111,109 @@ export default function MyListings() {
               </button>
             </div>
           ) : (
-            <div className="listings-table-container">
-              <table className="listings-table">
-                <thead>
-                  <tr>
-                    <th>Property</th>
-                    <th>Location</th>
-                    <th>Price/Night</th>
-                    <th>Status</th>
-                    <th>Bookings</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {listings.map((listing) => (
-                    <tr key={listing.id}>
-                      <td>
-                        <div className="listing-cell">
-                          <img 
-                            src={(listing.images && listing.images[0]) || 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=200'} 
-                            alt={listing.title || 'Property'} 
-                          />
-                          <span>{listing.title || 'Untitled'}</span>
-                        </div>
-                      </td>
-                      <td>{listing.location || (listing.city && listing.country ? `${listing.city}, ${listing.country}` : 'N/A')}</td>
-                      <td>${listing.price || 0}</td>
-                      <td>
-                        <span className={`status-badge ${getStatusColor(listing.status || 'PENDING')}`}>
-                          {(listing.status || 'pending').toLowerCase()}
-                        </span>
-                      </td>
-                      <td>{listing._count?.bookings ?? 0}</td>
-                      <td>
-                        <div className="action-buttons">
-                          <button 
-                            className="btn-icon" 
-                            title="View"
-                            onClick={() => navigate(`/property/${listing.id}`)}
-                          >
-                            <Eye size={18} />
-                          </button>
-                          <button className="btn-icon" title="Edit">
-                            <Edit2 size={18} />
-                          </button>
-                          <button 
-                            className="btn-icon btn-danger" 
-                            title="Delete"
-                            onClick={() => handleDelete(listing.id)}
-                          >
-                            <Trash2 size={18} />
-                          </button>
-                        </div>
-                      </td>
+            <>
+              {/* Listings Stats */}
+              <div className="listings-stats">
+                <div className="stat-card">
+                  <div className="stat-icon">
+                    <Home size={24} />
+                  </div>
+                  <div className="stat-info">
+                    <span className="stat-label">Total Listings</span>
+                    <span className="stat-value">{listings.length}</span>
+                  </div>
+                </div>
+                <div className="stat-card">
+                  <div className="stat-icon">
+                    <Calendar size={24} />
+                  </div>
+                  <div className="stat-info">
+                    <span className="stat-label">Active Bookings</span>
+                    <span className="stat-value">{listings.reduce((sum, l) => sum + (l._count?.bookings ?? 0), 0)}</span>
+                  </div>
+                </div>
+                <div className="stat-card">
+                  <div className="stat-icon">
+                    <DollarSign size={24} />
+                  </div>
+                  <div className="stat-info">
+                    <span className="stat-label">Avg. Price/Night</span>
+                    <span className="stat-value">${Math.round(listings.reduce((sum, l) => sum + (l.price || 0), 0) / listings.length)}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="listings-table-container">
+                <div className="table-header">
+                  <h2>Your Properties</h2>
+                  <div className="table-actions">
+                    <button className="btn-secondary">
+                      <Download size={16} />
+                      Export
+                    </button>
+                  </div>
+                </div>
+                <table className="listings-table">
+                  <thead>
+                    <tr>
+                      <th>Property</th>
+                      <th>Location</th>
+                      <th>Price/Night</th>
+                      <th>Status</th>
+                      <th>Bookings</th>
+                      <th>Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {listings.map((listing) => (
+                      <tr key={listing.id}>
+                        <td>
+                          <div className="listing-cell">
+                            <img 
+                              src={(listing.images && listing.images[0]) || 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=200'} 
+                              alt={listing.title || 'Property'} 
+                            />
+                            <div className="listing-details">
+                              <span className="listing-title">{listing.title || 'Untitled'}</span>
+                              <span className="listing-id">ID: {listing.id.slice(-8)}</span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>{listing.location || (listing.city && listing.country ? `${listing.city}, ${listing.country}` : 'N/A')}</td>
+                        <td className="price-cell">${(listing.price || 0).toLocaleString()}</td>
+                        <td>
+                          <span className={`status-badge ${getStatusColor(listing.status || 'PENDING')}`}>
+                            {(listing.status || 'pending').toLowerCase()}
+                          </span>
+                        </td>
+                        <td>{listing._count?.bookings ?? 0}</td>
+                        <td>
+                          <div className="action-buttons">
+                            <button 
+                              className="btn-icon" 
+                              title="View"
+                              onClick={() => navigate(`/property/${listing.id}`)}
+                            >
+                              <Eye size={18} />
+                            </button>
+                            <button className="btn-icon" title="Edit">
+                              <Edit2 size={18} />
+                            </button>
+                            <button 
+                              className="btn-icon btn-danger" 
+                              title="Delete"
+                              onClick={() => handleDelete(listing.id)}
+                            >
+                              <Trash2 size={18} />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </>
           )}
         </div>
       </main>

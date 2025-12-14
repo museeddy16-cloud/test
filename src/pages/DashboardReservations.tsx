@@ -132,6 +132,46 @@ export default function Reservations() {
         </header>
 
         <div className="dashboard-content">
+          {/* Reservation Stats */}
+          <div className="reservations-stats">
+            <div className="stat-card">
+              <div className="stat-icon">
+                <Calendar size={24} />
+              </div>
+              <div className="stat-info">
+                <span className="stat-label">Total Reservations</span>
+                <span className="stat-value">{reservations.length}</span>
+              </div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-icon">
+                <Check size={24} />
+              </div>
+              <div className="stat-info">
+                <span className="stat-label">Confirmed</span>
+                <span className="stat-value">{reservations.filter(r => r.status === 'CONFIRMED').length}</span>
+              </div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-icon">
+                <DollarSign size={24} />
+              </div>
+              <div className="stat-info">
+                <span className="stat-label">Total Revenue</span>
+                <span className="stat-value">${reservations.reduce((sum, r) => sum + (r.totalPrice || 0), 0).toLocaleString()}</span>
+              </div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-icon">
+                <Users size={24} />
+              </div>
+              <div className="stat-info">
+                <span className="stat-label">Total Guests</span>
+                <span className="stat-value">{reservations.reduce((sum, r) => sum + (r.guests || 0), 0)}</span>
+              </div>
+            </div>
+          </div>
+
           <div className="filter-tabs">
             <button 
               className={`filter-tab ${selectedStatus === 'all' ? 'active' : ''}`}

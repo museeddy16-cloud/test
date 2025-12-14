@@ -17,7 +17,7 @@ interface AuthContextType {
   user: User | null;
   token: string | null;
   isLoading: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<User>;
   register: (data: RegisterData) => Promise<void>;
   logout: () => void;
   updateUser: (data: Partial<User>) => void;
@@ -80,7 +80,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     checkAuth();
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const login = async (email: string, password: string): Promise<User> => {
     const res = await fetch(getApiUrl('/auth/signin'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -99,7 +99,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                        roles.includes('AGENT') ? 'AGENT' :
                        roles.includes('HOST') ? 'HOST' : 'CLIENT';
     
-    setUser({
+    const userData = {
       id: data.id,
       email: data.email,
       firstName: data.firstName,
@@ -108,9 +108,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       roles: roles,
       avatar: data.photo,
       isVerified: true
-    });
+    };
+    
+    setUser(userData);
     setToken(data.token);
     localStorage.setItem('token', data.token);
+    
+    return userData;
   };
 
   const register = async (registerData: RegisterData) => {

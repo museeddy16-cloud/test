@@ -26,11 +26,11 @@ export default function Login() {
     setError('');
     
     try {
-      await login(email, password);
+      const loggedInUser = await login(email, password);
       // Navigate based on user role
-      if (user?.role === 'ADMIN') {
+      if (loggedInUser.role === 'ADMIN') {
         navigate('/admin');
-      } else if (user?.role === 'HOST') {
+      } else if (loggedInUser.role === 'HOST') {
         navigate('/host');
       } else {
         navigate('/account');
