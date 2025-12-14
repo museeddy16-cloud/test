@@ -212,6 +212,42 @@ ul {
     border-radius: 6px;
   }
 }
+
+/* Extra Small Devices (Pixel 3, small phones: 320px-360px) */
+@media (max-width: 320px) {
+  body {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .container {
+    padding: 0 6px;
+    max-width: 100%;
+  }
+
+  .btn {
+    padding: 7px 10px;
+    font-size: 10px;
+    gap: 4px;
+  }
+
+  .card {
+    padding: 12px;
+    border-radius: 5px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  h3 {
+    font-size: 16px;
+  }
+}
 /* ========================================
    ADDITIONAL RESPONSIVE UTILITIES
    ======================================== */

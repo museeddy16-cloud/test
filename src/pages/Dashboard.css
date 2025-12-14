@@ -3354,3 +3354,84 @@ input:checked + .toggle-switch:before {
     page-break-inside: avoid;
   }
 }
+
+/* Extra Small Devices (320px and below - Pixel 3) */
+@media (max-width: 320px) {
+  .dashboard-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dashboard-sidebar {
+    position: fixed;
+    left: -100%;
+    width: 100%;
+    height: 100vh;
+    transition: left 0.3s ease;
+    z-index: 999;
+  }
+
+  .dashboard-sidebar.active {
+    left: 0;
+  }
+
+  .dashboard-main {
+    margin-left: 0;
+    width: 100%;
+    padding: 16px 8px;
+  }
+
+  .page-header {
+    padding: 12px 8px;
+    margin-bottom: 16px;
+  }
+
+  .page-header h1 {
+    font-size: 18px;
+  }
+
+  .page-header p {
+    font-size: 12px;
+  }
+
+  .stats-grid,
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 12px;
+  }
+
+  .stat-card h3 {
+    font-size: 12px;
+  }
+
+  .stat-card-value {
+    font-size: 18px;
+  }
+
+  .bookings-section,
+  .messages-section {
+    padding: 12px;
+  }
+
+  .section-header {
+    font-size: 14px;
+  }
+
+  .booking-card,
+  .message-card {
+    padding: 10px;
+    margin-bottom: 8px;
+  }
+
+  .earnings-card {
+    padding: 16px;
+  }
+
+  .chart-container {
+    height: 200px;
+  }
+}

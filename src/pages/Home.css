@@ -404,6 +404,78 @@
   }
 }
 
+/* Extra Small Devices (320px and below - Pixel 3) */
+@media (max-width: 320px) {
+  .hero {
+    padding: 20px 8px;
+  }
+
+  .hero h1 {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+
+  .hero p {
+    font-size: 12px;
+    margin-bottom: 16px;
+  }
+
+  .hero-search {
+    padding: 8px;
+    flex-direction: column;
+  }
+
+  .hero-search-item {
+    padding: 8px;
+    gap: 6px;
+    min-width: 100%;
+  }
+
+  .hero-search-divider {
+    display: none;
+  }
+
+  .hero-search-btn {
+    padding: 10px 16px;
+    font-size: 12px;
+    width: 100%;
+  }
+
+  .categories-scroll {
+    gap: 12px;
+    padding: 0 8px;
+  }
+
+  .category-item {
+    min-width: 60px;
+  }
+
+  .category-item svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .category-item span {
+    font-size: 10px;
+  }
+
+  .cta-card {
+    padding: 16px 8px;
+  }
+
+  .cta-content h2 {
+    font-size: 16px;
+  }
+
+  .cta-content p {
+    font-size: 12px;
+  }
+
+  .property-card {
+    border-radius: 8px;
+  }
+}
+
 /* Loading skeletons */
 .loading-grid {
   display: grid;

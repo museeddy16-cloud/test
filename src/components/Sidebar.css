@@ -225,3 +225,61 @@
     gap: 10px;
   }
 }
+
+/* Extra Small Devices (320px and below - Pixel 3) */
+@media (max-width: 320px) {
+  .sidebar {
+    width: 220px;
+  }
+
+  .sidebar-overlay {
+    display: block;
+  }
+
+  .sidebar-header {
+    padding: 10px;
+  }
+
+  .sidebar-logo span {
+    font-size: 14px;
+  }
+
+  .sidebar-close {
+    display: block;
+    padding: 4px;
+  }
+
+  .sidebar-user {
+    padding: 8px 10px;
+    margin: 6px;
+  }
+
+  .sidebar-avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .sidebar-user-info {
+    display: none;
+  }
+
+  .sidebar-nav {
+    padding: 0;
+  }
+
+  .sidebar-link {
+    padding: 10px 8px;
+    font-size: 12px;
+    gap: 8px;
+  }
+
+  .sidebar-link svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .sidebar-section-title {
+    padding: 8px 12px;
+    font-size: 10px;
+  }
+}

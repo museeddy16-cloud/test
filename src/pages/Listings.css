@@ -3,6 +3,21 @@
   background: var(--bg-light);
 }
 
+.listings-filters-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 997;
+}
+
+.listings-filters-overlay.active {
+  display: block;
+}
+
 .listings-header {
   background: var(--bg-white);
   border-bottom: 1px solid var(--border-color);
@@ -343,5 +358,143 @@
 
   .no-results h2 {
     font-size: 18px;
+  }
+}
+
+/* Extra Small Devices (320px and below - Pixel 3) */
+@media (max-width: 320px) {
+  .listings-search {
+    padding: 8px 10px;
+    border-radius: 25px;
+    flex-direction: column;
+  }
+
+  .listings-search input {
+    font-size: 12px;
+    width: 100%;
+  }
+
+  .filter-btn {
+    padding: 5px 10px;
+    font-size: 11px;
+    border-radius: 18px;
+    width: 100%;
+  }
+
+  .listings-info h1 {
+    font-size: 18px;
+  }
+
+  .listings-info p {
+    font-size: 12px;
+  }
+
+  .listings-container {
+    grid-template-columns: 1fr;
+  }
+
+  .listings-sidebar {
+    position: fixed;
+    left: -100%;
+    top: 130px;
+    width: 280px;
+    height: calc(100vh - 130px);
+    background: var(--bg-white);
+    border-right: 1px solid var(--border-color);
+    overflow-y: auto;
+    transition: left 0.3s ease;
+    z-index: 998;
+  }
+
+  .listings-sidebar.active {
+    left: 0;
+  }
+
+  .listings-main {
+    width: 100%;
+  }
+
+  .property-card {
+    border-radius: 8px;
+  }
+
+  .map-toggle {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+
+  .map-view {
+    height: 250px;
+  }
+
+  .no-results {
+    padding: 30px 8px;
+  }
+
+  .no-results svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .no-results h2 {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .no-results p {
+    font-size: 12px;
+  }
+
+  /* Mobile filter toggle button */
+  .mobile-filters-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 12px;
+  }
+
+  .mobile-filters-toggle:hover {
+    background: var(--primary-dark);
+  }
+
+  .listings-sidebar {
+    width: 100%;
+    left: -100%;
+    top: auto;
+    bottom: 0;
+    height: auto;
+    max-height: 80vh;
+    border-right: none;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .listings-sidebar.active {
+    left: 0;
+    bottom: 0;
+  }
+
+  .filter-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    background: var(--bg-white);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .filter-close-btn button {
+    background: none;
+    border: none;
+    color: var(--text-dark);
+    font-size: 16px;
+    cursor: pointer;
   }
 }

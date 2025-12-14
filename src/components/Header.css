@@ -295,11 +295,14 @@
 
 @media (max-width: 1024px) {
   .search-bar {
-    display: none;
+    display: flex;
+    max-width: 300px;
   }
 
   .host-btn {
-    display: none;
+    display: inline-flex;
+    padding: 10px 16px;
+    font-size: 13px;
   }
 }
 
@@ -334,15 +337,15 @@
   }
 
   .user-menu-wrapper {
-    display: none;
+    display: flex;
   }
 
   .icon-btn {
-    display: none;
+    display: flex;
   }
 
   .logo span {
-    display: none;
+    display: inline;
   }
 }
 
@@ -405,5 +408,64 @@
 
   .nav-link {
     font-size: 15px;
+  }
+}
+
+/* Extra Small Devices (320px and below - Pixel 3) */
+@media (max-width: 320px) {
+  .header-container {
+    padding: 8px 8px;
+    gap: 10px;
+  }
+
+  .logo img {
+    height: 24px;
+    width: auto;
+  }
+
+  .logo span {
+    font-size: 14px;
+  }
+
+  .mobile-menu-btn {
+    padding: 6px;
+    font-size: 18px;
+  }
+
+  .nav {
+    padding-top: 20px;
+    gap: 12px;
+    top: 54px;
+  }
+
+  .nav-link {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .user-menu-btn {
+    padding: 4px 6px;
+    gap: 4px;
+  }
+
+  .user-avatar {
+    width: 24px;
+    height: 24px;
+  }
+
+  .user-dropdown {
+    min-width: 160px;
+    right: -20px;
+  }
+
+  .user-dropdown button {
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+
+  .icon-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
   }
 }
