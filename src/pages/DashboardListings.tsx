@@ -1,4 +1,4 @@
-import { Plus, Edit2, Trash2, Eye, MoreVertical } from 'lucide-react';
+import { Plus, Edit2, Trash2, Eye, MoreVertical, Home, Calendar, DollarSign, Download } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getApiUrl } from '../config/api';

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
 import { Menu, Bell, Search } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
@@ -7,7 +7,18 @@ import LoadingSpinner from '../components/ui/LoadingSpinner';
 
 export default function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
   const { user, isLoading } = useAuth();
+
+  useEffect(() => {
+    // Double-check after a short delay to ensure context is updated
+    const timer = setTimeout(() => {
+      if (user && user.role !== 'ADMIN') {
+        setShouldRedirect(true);
+      }
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [user]);
 
   if (isLoading) {
     return <LoadingSpinner fullScreen message="Loading..." />;
@@ -17,7 +28,7 @@ export default function AdminLayout() {
     return <Navigate to="/login" />;
   }
 
-  if (user.role !== 'ADMIN') {
+  if (user.role !== 'ADMIN' || shouldRedirect) {
     return <Navigate to="/account" />;
   }
 

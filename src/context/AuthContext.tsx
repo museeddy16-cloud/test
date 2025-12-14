@@ -99,12 +99,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                        roles.includes('AGENT') ? 'AGENT' :
                        roles.includes('HOST') ? 'HOST' : 'CLIENT';
     
-    const userData = {
+    const userData: User = {
       id: data.id,
       email: data.email,
       firstName: data.firstName,
       lastName: data.lastName,
-      role: primaryRole,
+      role: primaryRole as 'CLIENT' | 'HOST' | 'ADMIN' | 'AGENT',
       roles: roles,
       avatar: data.photo,
       isVerified: true

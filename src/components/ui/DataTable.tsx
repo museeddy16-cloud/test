@@ -52,7 +52,12 @@ export default function DataTable<T extends Record<string, unknown>>({
     const aVal = a[sortKey];
     const bVal = b[sortKey];
     if (aVal === bVal) return 0;
-    const comparison = aVal < bVal ? -1 : 1;
+    
+    // Type-safe comparison
+    const comparison = 
+      typeof aVal === 'number' && typeof bVal === 'number' ? aVal - bVal :
+      String(aVal) < String(bVal) ? -1 : 1;
+    
     return sortOrder === 'asc' ? comparison : -comparison;
   });
 
