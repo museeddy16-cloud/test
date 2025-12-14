@@ -7,12 +7,15 @@ import {
   CalendarDays, 
   DollarSign, 
   TrendingUp,
+  TrendingDown,
   AlertCircle,
   ArrowUpRight,
-  Menu
+  Menu,
+  Eye
 } from 'lucide-react';
 import AdminSidebar from '../../components/AdminSidebar';
-import './AdminDashboard.css';
+import { adminStats, adminProperties, adminUsers, adminBookings, revenueData } from '../../data/adminMockData';
+import '../Dashboard.css';
 
 interface Stats {
   totalUsers: number;
@@ -21,6 +24,15 @@ interface Stats {
   totalRevenue: number;
   pendingProperties: number;
   recentBookings: any[];
+  revenueChange?: number;
+  bookingsChange?: number;
+  propertiesChange?: number;
+  usersChange?: number;
+}
+
+interface RevenueData {
+  month: string;
+  revenue: number;
 }
 
 export default function AdminDashboard() {
@@ -31,9 +43,25 @@ export default function AdminDashboard() {
     totalBookings: 0,
     totalRevenue: 0,
     pendingProperties: 0,
-    recentBookings: []
+    recentBookings: [],
+    revenueChange: 12.5,
+    bookingsChange: 8.3,
+    propertiesChange: 15.2,
+    usersChange: 22.1,
   });
   const [loading, setLoading] = useState(true);
+
+  // Mock revenue data
+  const revenueData: RevenueData[] = [
+    { month: 'January', revenue: 180000 },
+    { month: 'February', revenue: 220000 },
+    { month: 'March', revenue: 195000 },
+    { month: 'April', revenue: 250000 },
+    { month: 'May', revenue: 280000 },
+    { month: 'June', revenue: 320000 },
+    { month: 'July', revenue: 350000 },
+    { month: 'August', revenue: 420000 },
+  ];
 
   useEffect(() => {
     fetchStats();
@@ -57,18 +85,44 @@ export default function AdminDashboard() {
   };
 
   const statCards = [
-    { icon: Users, label: 'Total Users', value: stats.totalUsers, color: '#1a3b8f' },
-    { icon: Home, label: 'Total Properties', value: stats.totalProperties, color: '#28a745' },
-    { icon: CalendarDays, label: 'Total Bookings', value: stats.totalBookings, color: '#ffc107' },
-    { icon: DollarSign, label: 'Total Revenue', value: `$${stats.totalRevenue.toLocaleString()}`, color: '#17a2b8' }
+    { 
+      title: 'Total Revenue',
+      value: `$${(stats.totalRevenue / 1000).toFixed(1)}K`,
+      change: stats.revenueChange || 0,
+      icon: DollarSign,
+      color: 'bg-gradient-to-br from-emerald-500 to-emerald-600',
+    },
+    { 
+      title: 'Total Bookings',
+      value: stats.totalBookings.toLocaleString(),
+      change: stats.bookingsChange || 0,
+      icon: CalendarDays,
+      color: 'bg-gradient-to-br from-blue-500 to-blue-600',
+    },
+    { 
+      title: 'Active Properties',
+      value: stats.totalProperties.toLocaleString(),
+      change: stats.propertiesChange || 0,
+      icon: Home,
+      color: 'bg-gradient-to-br from-amber-500 to-amber-600',
+    },
+    { 
+      title: 'Total Users',
+      value: stats.totalUsers.toLocaleString(),
+      change: stats.usersChange || 0,
+      icon: Users,
+      color: 'bg-gradient-to-br from-cyan-500 to-cyan-600',
+    },
   ];
+
+  const maxRevenue = Math.max(...revenueData.map((d) => d.revenue));
 
   return (
     <div className="admin-layout">
       <AdminSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       
-      <main className="admin-main">
-        <header className="admin-header">
+      <main className="admin-main dashboard-main">
+        <header className="admin-header dashboard-header">
           <button className="sidebar-toggle" onClick={() => setSidebarOpen(true)}>
             <Menu size={24} />
           </button>
@@ -78,92 +132,140 @@ export default function AdminDashboard() {
           </div>
         </header>
 
-        <div className="admin-content">
-          <section className="admin-stats">
-            {statCards.map((stat, index) => (
-              <div key={index} className="admin-stat-card">
-                <div className="stat-icon" style={{ backgroundColor: `${stat.color}15`, color: stat.color }}>
-                  <stat.icon size={24} />
-                </div>
-                <div className="stat-info">
-                  <span className="stat-value">{loading ? '...' : stat.value}</span>
-                  <span className="stat-label">{stat.label}</span>
-                </div>
-              </div>
-            ))}
-          </section>
-
+        <div className="admin-content dashboard-content space-y-6">
+          {/* Alert for pending properties */}
           {stats.pendingProperties > 0 && (
             <div className="admin-alert">
               <AlertCircle size={20} />
               <span>{stats.pendingProperties} properties pending approval</span>
-              <Link to="/admin/properties?status=PENDING">Review now</Link>
+              <Link to="/admin/properties?status=PENDING" className="alert-link">Review now</Link>
             </div>
           )}
 
-          <div className="admin-grid">
-            <section className="admin-section">
-              <div className="section-header">
-                <h2>Recent Bookings</h2>
-                <Link to="/admin/bookings" className="view-all">
-                  View all <ArrowUpRight size={16} />
-                </Link>
-              </div>
-              <div className="admin-table-wrapper">
-                <table className="admin-table">
-                  <thead>
-                    <tr>
-                      <th>Guest</th>
-                      <th>Property</th>
-                      <th>Status</th>
-                      <th>Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {stats.recentBookings.length === 0 ? (
-                      <tr>
-                        <td colSpan={4} className="empty-state">No recent bookings</td>
-                      </tr>
-                    ) : (
-                      stats.recentBookings.map((booking: any) => (
-                        <tr key={booking.id}>
-                          <td>{booking.user?.firstName} {booking.user?.lastName}</td>
-                          <td>{booking.property?.title}</td>
-                          <td>
-                            <span className={`status-badge ${booking.status.toLowerCase()}`}>
-                              {booking.status}
-                            </span>
-                          </td>
-                          <td>${booking.totalPrice}</td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </section>
+          {/* Stat Cards */}
+          <div className="stat-cards-grid">
+            {statCards.map((stat) => {
+              const Icon = stat.icon;
+              const isPositive = stat.change > 0;
+              return (
+                <div key={stat.title} className="stat-card-modern">
+                  <div className="stat-card-header">
+                    <div className={`stat-icon-wrapper ${stat.color}`}>
+                      <Icon size={24} />
+                    </div>
+                    <div className={`stat-change ${isPositive ? 'positive' : 'negative'}`}>
+                      {isPositive ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
+                      <span>{Math.abs(stat.change)}%</span>
+                    </div>
+                  </div>
+                  <div className="stat-card-content">
+                    <p className="stat-label">{stat.title}</p>
+                    <p className="stat-value">{loading ? '...' : stat.value}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
 
-            <section className="admin-section quick-actions">
-              <h2>Quick Actions</h2>
-              <div className="action-buttons">
-                <Link to="/admin/users" className="action-btn">
+          {/* Revenue Overview */}
+          <div className="dashboard-grid-2">
+            <div className="dashboard-card">
+              <h3 className="card-title">Revenue Overview</h3>
+              <div className="revenue-chart">
+                {revenueData.map((data) => {
+                  const percentage = (data.revenue / maxRevenue) * 100;
+                  return (
+                    <div key={data.month} className="revenue-item">
+                      <div className="revenue-header">
+                        <span className="revenue-month">{data.month}</span>
+                        <span className="revenue-amount">${(data.revenue / 1000).toFixed(0)}K</span>
+                      </div>
+                      <div className="revenue-bar-container">
+                        <div
+                          className="revenue-bar"
+                          style={{ width: `${percentage}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Quick Actions */}
+            <div className="dashboard-card">
+              <h3 className="card-title">Quick Actions</h3>
+              <div className="quick-actions-grid">
+                <Link to="/admin/users" className="action-button">
                   <Users size={20} />
                   <span>Manage Users</span>
                 </Link>
-                <Link to="/admin/properties" className="action-btn">
+                <Link to="/admin/properties" className="action-button">
                   <Home size={20} />
                   <span>Manage Properties</span>
                 </Link>
-                <Link to="/admin/bookings" className="action-btn">
+                <Link to="/admin/bookings" className="action-button">
                   <CalendarDays size={20} />
                   <span>View Bookings</span>
                 </Link>
-                <Link to="/admin/analytics" className="action-btn">
+                <Link to="/admin/analytics" className="action-button">
                   <TrendingUp size={20} />
                   <span>Analytics</span>
                 </Link>
               </div>
-            </section>
+            </div>
+          </div>
+
+          {/* Recent Bookings Table */}
+          <div className="dashboard-card">
+            <div className="card-header">
+              <h3 className="card-title">Recent Bookings</h3>
+              <Link to="/admin/bookings" className="view-all">
+                View all <ArrowUpRight size={16} />
+              </Link>
+            </div>
+            <div className="table-wrapper">
+              <table className="admin-table">
+                <thead>
+                  <tr>
+                    <th>Guest</th>
+                    <th>Property</th>
+                    <th>Check In</th>
+                    <th>Check Out</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {stats.recentBookings.length === 0 ? (
+                    <tr>
+                      <td colSpan={7} className="empty-state">No recent bookings</td>
+                    </tr>
+                  ) : (
+                    stats.recentBookings.slice(0, 5).map((booking: any) => (
+                      <tr key={booking.id}>
+                        <td>{booking.user?.firstName} {booking.user?.lastName}</td>
+                        <td>{booking.property?.title}</td>
+                        <td>{booking.checkIn || 'N/A'}</td>
+                        <td>{booking.checkOut || 'N/A'}</td>
+                        <td className="font-semibold">${booking.totalPrice?.toLocaleString()}</td>
+                        <td>
+                          <span className={`status-badge status-${booking.status?.toLowerCase()}`}>
+                            {booking.status}
+                          </span>
+                        </td>
+                        <td>
+                          <button className="btn-icon">
+                            <Eye size={16} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </main>

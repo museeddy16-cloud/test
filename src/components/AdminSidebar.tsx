@@ -8,6 +8,7 @@ import {
   Settings, 
   LogOut,
   Shield,
+  Star,
   X
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
@@ -29,6 +30,7 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
     { icon: Users, label: 'Users', path: '/admin/users' },
     { icon: Home, label: 'Properties', path: '/admin/properties' },
     { icon: CalendarDays, label: 'Bookings', path: '/admin/bookings' },
+    { icon: Star, label: 'Reviews', path: '/admin/reviews' },
     { icon: BarChart3, label: 'Analytics', path: '/admin/analytics' },
     { icon: Settings, label: 'Settings', path: '/admin/settings' },
   ];

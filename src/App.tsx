@@ -27,9 +27,10 @@ import Hosting from './pages/Hosting';
 import Pricing from './pages/Pricing';
 import HostOnboarding from './pages/HostOnboarding';
 import AdminDashboard from './pages/admin/AdminDashboard';
-import AdminUsers from './pages/admin/AdminUsers';
-import AdminProperties from './pages/admin/AdminProperties';
-import AdminBookings from './pages/admin/AdminBookings';
+import AdminUsersPage from './pages/admin/AdminUsersPage';
+import AdminPropertiesPage from './pages/admin/AdminPropertiesPage';
+import AdminBookingsPage from './pages/admin/AdminBookingsPage';
+import AdminReviewsPage from './pages/admin/AdminReviewsPage';
 import AdminAnalytics from './pages/admin/AdminAnalytics';
 import AdminSettings from './pages/admin/AdminSettings';
 import AdminPricingPlans from './pages/admin/AdminPricingPlans';
@@ -116,9 +117,10 @@ function App() {
             
             <Route element={<ProtectedRoute adminOnly><AdminLayout /></ProtectedRoute>}>
               <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="/admin/users" element={<AdminUsers />} />
-              <Route path="/admin/properties" element={<AdminProperties />} />
-              <Route path="/admin/bookings" element={<AdminBookings />} />
+              <Route path="/admin/users" element={<AdminUsersPage />} />
+              <Route path="/admin/properties" element={<AdminPropertiesPage />} />
+              <Route path="/admin/bookings" element={<AdminBookingsPage />} />
+              <Route path="/admin/reviews" element={<AdminReviewsPage />} />
               <Route path="/admin/analytics" element={<AdminAnalytics />} />
               <Route path="/admin/pricing" element={<AdminPricingPlans />} />
               <Route path="/admin/payments" element={<AdminPaymentsReports />} />
