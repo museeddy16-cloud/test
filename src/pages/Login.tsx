@@ -12,7 +12,7 @@ export default function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, user } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +27,15 @@ export default function Login() {
     
     try {
       await login(email, password);
-      navigate('/dashboard');
+      
+      // Navigate based on user role
+      if (user?.role === 'ADMIN') {
+        navigate('/admin');
+      } else if (user?.role === 'HOST') {
+        navigate('/host');
+      } else {
+        navigate('/account');
+      }
     } catch (err: any) {
       setError(err.message || 'Login failed');
     } finally {

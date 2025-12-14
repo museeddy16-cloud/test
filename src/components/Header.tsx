@@ -112,28 +112,44 @@ export default function Header() {
                       </div>
                     </div>
                     <div className="dropdown-divider"></div>
-                    <button onClick={() => { navigate('/dashboard'); setIsUserMenuOpen(false); }}>
+                    <button onClick={() => { 
+                      const dashboardPath = user?.role === 'ADMIN' ? '/admin' : user?.role === 'HOST' ? '/host' : '/account';
+                      navigate(dashboardPath); 
+                      setIsUserMenuOpen(false); 
+                    }}>
                       Dashboard
                     </button>
-                    <button onClick={() => { navigate('/dashboard/reservations'); setIsUserMenuOpen(false); }}>
-                      My Reservations
+                    <button onClick={() => { 
+                      const reservationsPath = user?.role === 'HOST' ? '/host/bookings' : '/account/bookings';
+                      navigate(reservationsPath); 
+                      setIsUserMenuOpen(false); 
+                    }}>
+                      {user?.role === 'HOST' ? 'My Reservations' : 'My Bookings'}
                     </button>
-                    <button onClick={() => { navigate('/dashboard/wishlist'); setIsUserMenuOpen(false); }}>
+                    <button onClick={() => { 
+                      const wishlistPath = user?.role === 'HOST' ? '/host' : '/account';
+                      navigate(wishlistPath); 
+                      setIsUserMenuOpen(false); 
+                    }}>
                       Wishlist
                     </button>
-                    <button onClick={() => { navigate('/dashboard/messages'); setIsUserMenuOpen(false); }}>
+                    <button onClick={() => { 
+                      const messagesPath = user?.role === 'HOST' ? '/host/messages' : '/account/messages';
+                      navigate(messagesPath); 
+                      setIsUserMenuOpen(false); 
+                    }}>
                       Messages
                     </button>
                     {(user.role === 'HOST' || user.roles?.includes('HOST')) && (
                       <>
                         <div className="dropdown-divider"></div>
-                        <button onClick={() => { navigate('/dashboard/listings'); setIsUserMenuOpen(false); }}>
+                        <button onClick={() => { navigate('/host/listings'); setIsUserMenuOpen(false); }}>
                           My Listings
                         </button>
-                        <button onClick={() => { navigate('/dashboard/earnings'); setIsUserMenuOpen(false); }}>
+                        <button onClick={() => { navigate('/host/earnings'); setIsUserMenuOpen(false); }}>
                           Earnings
                         </button>
-                        <button onClick={() => { navigate('/dashboard/reviews'); setIsUserMenuOpen(false); }}>
+                        <button onClick={() => { navigate('/host/reviews'); setIsUserMenuOpen(false); }}>
                           Reviews
                         </button>
                       </>

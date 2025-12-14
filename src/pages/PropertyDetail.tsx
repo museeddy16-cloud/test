@@ -185,7 +185,8 @@ export default function PropertyDetail() {
         setBookingRef(booking.id);
         setBookingSuccess(true);
         setTimeout(() => {
-          navigate('/dashboard/reservations');
+          const reservationsPath = user?.role === 'HOST' ? '/host/bookings' : '/account/bookings';
+          navigate(reservationsPath);
         }, 3000);
       } else {
         const error = await res.json();

@@ -2,8 +2,11 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { CheckCircle, Calendar, MapPin, Users, Download, MessageCircle, Home, ArrowRight } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { getApiUrl } from '../config/api';
-import LoadingSpinner from '../components/LoadingSpinner';
+
+export default function BookingConfirmation() {
+  const { user } = useAuth();
+  const { bookingId } = useParams<{ bookingId: string }>();
+  const navigate = useNavigate();
 
 interface BookingData {
   id: string;
@@ -82,7 +85,10 @@ export default function BookingConfirmation() {
     return (
       <div className="confirmation-error">
         <h1>Booking not found</h1>
-        <button onClick={() => navigate('/dashboard/reservations')}>View My Bookings</button>
+        <button onClick={() => {
+          const bookingsPath = user?.role === 'HOST' ? '/host/bookings' : '/account/bookings';
+          navigate(bookingsPath);
+        }}>View My Bookings</button>
       </div>
     );
   }
@@ -352,7 +358,10 @@ export default function BookingConfirmation() {
                 <h4>Your Host</h4>
                 <p>{booking.property.host.firstName} {booking.property.host.lastName}</p>
               </div>
-              <button className="btn-message" onClick={() => navigate('/dashboard/messages')}>
+              <button className="btn-message" onClick={() => {
+                const messagesPath = user?.role === 'HOST' ? '/host/messages' : '/account/messages';
+                navigate(messagesPath);
+              }}>
                 <MessageCircle size={18} />
                 Message Host
               </button>
@@ -366,7 +375,7 @@ export default function BookingConfirmation() {
         </div>
 
         <div className="confirmation-actions">
-          <Link to="/dashboard/reservations" className="action-btn">
+          <Link to={user?.role === 'HOST' ? '/host/bookings' : '/account/bookings'} className="action-btn">
             <Calendar size={24} />
             <span>View My Trips</span>
           </Link>

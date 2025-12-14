@@ -88,7 +88,7 @@ export default function MyListings() {
             <h1>My Listings</h1>
             <p>Manage your properties and listings</p>
           </div>
-          <button className="btn-primary" onClick={() => navigate('/dashboard/listings/create')}>
+          <button className="btn-primary" onClick={() => navigate('/host/listings/create')}>
             <Plus size={20} />
             Create New Listing
           </button>
@@ -105,7 +105,7 @@ export default function MyListings() {
               <div className="empty-icon">🏠</div>
               <h3>No listings yet</h3>
               <p>Start hosting by creating your first property listing</p>
-              <button className="btn-primary" onClick={() => navigate('/dashboard/listings/create')}>
+              <button className="btn-primary" onClick={() => navigate('/host/listings/create')}>
                 <Plus size={20} />
                 Create Your First Listing
               </button>
